@@ -23,14 +23,9 @@ class Player {
   final static int MAX_TIMER = 100;
   
   // Constructor
-  public Player(int m_grid_x, int m_grid_y) {
-    int a_width = arena_width();
-    int c_width = cell_width();
-    int a_height = arena_height();
-    int c_height = cell_height();
-    
-    max_grid_x = m_grid_x;
-    max_grid_y = m_grid_y;
+  public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
+    this.max_grid_x = max_grid_x;
+    this.max_grid_y = max_grid_y;
     alive = new boolean[max_grid_x][max_grid_y];
     ever_alive = new boolean[max_grid_x][max_grid_y];
     state = INIT;

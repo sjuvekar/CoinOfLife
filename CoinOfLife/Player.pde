@@ -185,7 +185,10 @@ public class Player {
       state = PLAYING;
       reset();
     }
-    
+    else if (mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
+      state = PLAYING;
+      placeCoin();
+    }
   }
   
   // Private

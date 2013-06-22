@@ -38,7 +38,6 @@ class Player {
     this.max_grid_y = max_grid_y;
     alive = new boolean[max_grid_x][max_grid_y];
     ever_alive = new boolean[max_grid_x][max_grid_y];
-    state = INIT;
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;
@@ -48,6 +47,9 @@ class Player {
     last_X = new ArrayList();
     last_Y = new ArrayList();
 
+    // Create initial state
+    state = INIT;
+    
     // Create buttons  
     int button_x = a_width;
     int play_y = c_height;
@@ -79,7 +81,7 @@ class Player {
   public Button get_reset_button() { return reset_button; }
   public Timer getTimer() { return timer; }
   
-  
+  // Place a coin on cell
   public void placeCoin() {
     if (state != PLAYING) return;
     int c_width = cell_width();
@@ -92,6 +94,7 @@ class Player {
     last_Y.add(0, j);
   }
 
+  // Responds to undo press by user
   public void undo() {
     if (state != PLAYING) return;
     int lx = last_X.get(0);
@@ -102,6 +105,7 @@ class Player {
     last_Y.remove(0);
   }
 
+  // Responds to reset pressed by user
   public void reset() {
     if (state != PLAYING) return;
     for (int i = 0; i < max_grid_x; i++) {
@@ -116,6 +120,7 @@ class Player {
     }
   }
 
+  // Check if a cell is alive
   private boolean isAlive(int c_i, int c_j) {
     int alive_neighbors = 0;
     int max_x = alive.length;
@@ -150,6 +155,10 @@ class Player {
   public void simulate() {
     if (state != SIMULATING) return;
     boolean temp_alive[][] = new boolean[max_grid_x][max_grid_y];
+  }
+  
+  // Most important method. Effectively keeps state
+  public void play() {
   }
 }
 

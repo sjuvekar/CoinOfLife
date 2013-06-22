@@ -22,5 +22,6 @@ void draw() {
 }
 
 void mousePressed() {
+  player.play();
 }
 

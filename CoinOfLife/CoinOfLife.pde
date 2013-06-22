@@ -1,22 +1,31 @@
 /** Global Constants **/
+// Image array at every iteration of simulation
 PImage[][] coin_images;
+
+// Position of last coin. Used in undo
 int LAST_IMG_X, LAST_IMG_Y;
+
+// Flag to set simulation to true when 'play' is pressed
+boolean SIMULATE_FLAG;
 
 void setup() {
   /** Set the values of global constants **/
   reset();
+  SIMULATE_FLAG = false;
   coin_images = new PImage[max_grid_X()+2][max_grid_Y()+2];
 }
 
 void draw() {
-  
+  if (SIMULATE_FLAG) 
+    simulate();
 }
 
 void mousePressed() {
   if (mouseX > arena_width() - cell_width()) { 
-     play();
+     SIMULATE_FLAG = true;
   }
   else if (mouseX >= cell_width() && mouseY >= cell_height() && mouseY <= arena_height() - cell_height()) {
+    SIMULATE_FLAG = false;
     int c_w = cell_width();
     int c_h = cell_height();
     LAST_IMG_X = mouseX /  c_w;
@@ -27,7 +36,7 @@ void mousePressed() {
   }
 }
 
-void play() {
+void simulate() {
   reset();
   int c_w = cell_width();
   int c_h = cell_height();

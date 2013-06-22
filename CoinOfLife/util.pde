@@ -30,6 +30,9 @@ int min_grid_Y() {
   return 1;
 }
 
+/***
+ * Redraw the entire coin_images array
+ ***/
 void drawCoins() {
   reset();
   int CELL_WIDTH = cell_width();
@@ -44,3 +47,36 @@ void drawCoins() {
     }
   }
 }
+
+
+/***
+ * Very important method. Call this method to clear the screen and redraw the grid
+ ***/
+void reset() {
+  // Setting up background and colors
+  background(0);
+  size(640, 480);
+  stroke(255);
+
+  int ARENA_WIDTH = arena_width();
+  int CELL_WIDTH = cell_width();
+  int ARENA_HEIGHT = arena_height();
+  int CELL_HEIGHT = cell_height();  
+
+  for (int i = CELL_WIDTH; i < ARENA_WIDTH; i += CELL_WIDTH)  
+    line(i, CELL_HEIGHT, i, ARENA_HEIGHT - CELL_HEIGHT);
+
+  for (int i = CELL_HEIGHT; i < ARENA_HEIGHT; i += CELL_HEIGHT)
+    line(CELL_WIDTH, i, ARENA_WIDTH - CELL_WIDTH, i);
+}
+
+
+/***
+ * Undo the last placed coin. 
+ * TODO: Can only be called once
+ ***/
+void undo() {
+  coin_images[LAST_IMG_X][LAST_IMG_Y] = null;
+  drawCoins();
+}
+

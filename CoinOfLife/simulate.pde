@@ -55,3 +55,34 @@ void advanceCells() {
   arrayCopy(TEMP_IS_ALIVE_ARRAY, IS_ALIVE_ARRAY);
   drawCoins();
 }
+
+/***
+ * Show an animation to advance score
+ ***/
+ void advanceScore() {
+   int CELL_WIDTH = cell_width();
+   int CELL_HEIGHT = cell_height();
+   SCORE++;
+   CELLS_COVERED--;
+   
+   if (CELLS_COVERED == 0)
+        ACHIEVEMENT_FLAG = true;
+   else {
+     fill(0);
+     stroke(0);
+     rect(TIMER_X, TIMER_Y/2, width - TIMER_X, 2 * CELL_HEIGHT);
+     int s = SCORE;
+     int[] digits = {};
+     while (s >= 0) {
+       digits = append(digits, s % 10);
+       s /= 10;
+       if (s == 0)
+         break;
+     }
+     
+     image(COIN_IMAGE, SCORE_X, SCORE_Y, SCORE_WIDTH, SCORE_HEIGHT);
+     for (int j = digits.length - 1; j >= 0; j--) {
+       image(DIGIT_IMAGES[digits[j]], SCORE_X + (digits.length - j) * SCORE_WIDTH, SCORE_Y, SCORE_WIDTH, SCORE_HEIGHT);
+     }
+   }
+ }

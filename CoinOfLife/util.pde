@@ -61,6 +61,10 @@ void reset() {
   BUTTON_WIDTH = width - ARENA_WIDTH - CELL_WIDTH;
   BUTTON_HEIGHT = CELL_WIDTH * 2;
   BUTTON_CURVATURE = CELL_WIDTH;
+  SCORE_X = TIMER_X;
+  SCORE_Y = TIMER_Y / 2;
+  SCORE_WIDTH = CELL_WIDTH * 2;
+  SCORE_HEIGHT = CELL_HEIGHT * 2;
   
   // Create Buttons
   createButton(PLAY_X, PLAY_Y, "Play");

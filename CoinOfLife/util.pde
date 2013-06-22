@@ -31,25 +31,6 @@ int min_grid_Y() {
 }
 
 /***
- * Redraw the entire coin_images array
- ***/
-void drawCoins() {
-  reset();
-  int CELL_WIDTH = cell_width();
-  int CELL_HEIGHT = cell_height();  
-  
-  for (int i = min_grid_X(); i <= max_grid_X(); i++) {
-    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
-      if (coin_images[i][j] != null) {
-        imageMode(CORNER);
-        image(coin_images[i][j], i * CELL_WIDTH, j * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
-      }
-    }
-  }
-}
-
-
-/***
  * Very important method. Call this method to clear the screen and redraw the grid
  ***/
 void reset() {
@@ -57,7 +38,7 @@ void reset() {
   background(0);
   size(640, 480);
   stroke(255);
-
+  
   int ARENA_WIDTH = arena_width();
   int CELL_WIDTH = cell_width();
   int ARENA_HEIGHT = arena_height();
@@ -68,6 +49,61 @@ void reset() {
 
   for (int i = CELL_HEIGHT; i < ARENA_HEIGHT; i += CELL_HEIGHT)
     line(CELL_WIDTH, i, ARENA_WIDTH - CELL_WIDTH, i);
+  
+  TIMER_X = (int) (ARENA_WIDTH);
+  TIMER_Y = (int) (ARENA_HEIGHT * 0.9);
+  PLAY_X = TIMER_X;
+  PLAY_Y = CELL_HEIGHT;
+  UNDO_X = TIMER_X;
+  UNDO_Y = CELL_HEIGHT * 4;
+  RESET_X = TIMER_X;
+  RESET_Y = (int)(CELL_HEIGHT * 7.5);
+  BUTTON_WIDTH = width - ARENA_WIDTH - CELL_WIDTH;
+  BUTTON_HEIGHT = CELL_WIDTH * 2;
+  BUTTON_CURVATURE = CELL_WIDTH;
+  
+  // Create Buttons
+  createButton(PLAY_X, PLAY_Y, "Play");
+  createButton(UNDO_X, UNDO_Y, "Undo");
+  createButton(RESET_X, RESET_Y, "Reset");
+  
+  // Place the timer 
+  fill(255);
+  textSize(20);
+  text("Time", TIMER_X, TIMER_Y);
+  fill(0, 255, 0);
+  if (MAX_TIMER == 0) {
+    rect(TIMER_X, TIMER_Y + CELL_HEIGHT, width - ARENA_WIDTH - CELL_WIDTH, CELL_HEIGHT);
+  }
+  else {
+    rect(TIMER_X, TIMER_Y + CELL_HEIGHT, (int)( (width - ARENA_WIDTH - CELL_WIDTH) * (MAX_TIMER - TIMER) / MAX_TIMER), CELL_HEIGHT);
+  }
+}
+
+
+/***
+ * Redraw the entire coin_images array
+ ***/
+void drawCoins() {
+  reset();
+  int CELL_WIDTH = cell_width();
+  int CELL_HEIGHT = cell_height();  
+  
+  for (int i = min_grid_X(); i <= max_grid_X(); i++)
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++)
+      if (IS_EVER_ALIVE_ARRAY[i][j]) {
+        fill(50, 50, 50);
+        rect(i * CELL_WIDTH, j * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+      }
+  
+  for (int i = min_grid_X(); i <= max_grid_X(); i++) {
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
+      if (IS_ALIVE_ARRAY[i][j]) {
+        imageMode(CORNER);
+        image(COIN_IMAGE, i * CELL_WIDTH, j * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+      }
+    }
+  }
 }
 
 
@@ -76,7 +112,7 @@ void reset() {
  * TODO: Can only be called once
  ***/
 void undo() {
-  coin_images[LAST_IMG_X][LAST_IMG_Y] = null;
+  IS_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = false;
   drawCoins();
 }
 

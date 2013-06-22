@@ -1,6 +1,11 @@
 /** Global Constants **/
-// Image array at every iteration of simulation
-PImage[][] coin_images;
+// One image to be drawn at every location
+/* @pjs preload="images/coin.png"; */
+PImage COIN_IMAGE;
+
+// Dead or Alive array
+boolean IS_ALIVE_ARRAY[][];
+boolean IS_EVER_ALIVE_ARRAY[][];
 
 // Position of last coin. Used in undo
 int LAST_IMG_X, LAST_IMG_Y;
@@ -8,50 +13,65 @@ int LAST_IMG_X, LAST_IMG_Y;
 // Flag to set simulation to true when 'play' is pressed
 boolean SIMULATE_FLAG;
 
+// Timer to keep track of progess
+int TIMER;
+
+// Maximum timer. stop draw()ing after timer reaches this value
+int MAX_TIMER;
+
+// Button parameters
+int PLAY_X, PLAY_Y, UNDO_X, UNDO_Y, RESET_X, RESET_Y;
+int BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_CURVATURE;
+
+// Cells covered during the game
+int CELLS_COVERED;
+
+// Timer Position
+int TIMER_X, TIMER_Y;
+
 void setup() {
   /** Set the values of global constants **/
   reset();
+
   SIMULATE_FLAG = false;
-  coin_images = new PImage[max_grid_X()+2][max_grid_Y()+2];
+  TIMER = 0;
+  MAX_TIMER = 200;
+  CELLS_COVERED = 0;
+
+  COIN_IMAGE = loadImage("images/coin.png");
+  IS_ALIVE_ARRAY = new boolean[max_grid_X()+2][max_grid_Y()+2];
+  IS_EVER_ALIVE_ARRAY = new boolean[max_grid_X()+2][max_grid_Y()+2];
 }
 
 void draw() {
-  if (SIMULATE_FLAG) 
-    simulate();
+  if (SIMULATE_FLAG) {
+    advanceCells();
+    TIMER++;
+    if (TIMER >= MAX_TIMER)
+      noLoop();
+  }
 }
 
 void mousePressed() {
-  if (mouseX > arena_width() - cell_width()) { 
-     SIMULATE_FLAG = true;
+  if (insidePlay()) { 
+    SIMULATE_FLAG = true;
   }
-  else if (mouseX >= cell_width() && mouseY >= cell_height() && mouseY <= arena_height() - cell_height()) {
-    SIMULATE_FLAG = false;
-    int c_w = cell_width();
-    int c_h = cell_height();
-    LAST_IMG_X = mouseX /  c_w;
-    LAST_IMG_Y = mouseY / c_h;
-    coin_images[LAST_IMG_X][LAST_IMG_Y] = loadImage("coin.png");
-    imageMode(CORNER);
-    image(coin_images[LAST_IMG_X][LAST_IMG_Y], LAST_IMG_X * c_w, LAST_IMG_Y * c_h, c_w, c_h);
+  else if (insideUndo()) {
+    undo();
   }
-}
+  else if (insideReset()) {
+    reset();
+  }
+  else {
+    int ARENA_WIDTH = arena_width();
+    int CELL_WIDTH = cell_width();
+    int ARENA_HEIGHT = arena_height();
+    int CELL_HEIGHT = cell_height();  
 
-void simulate() {
-  reset();
-  int c_w = cell_width();
-  int c_h = cell_height();
-  PImage new_coin_images[][] = new PImage[max_grid_X()+2][max_grid_Y()+2];
-
-  for (int i = min_grid_X(); i <= max_grid_X(); i++) {
-    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
-      if (is_alive(i, j)) {
-        new_coin_images[i][j] = loadImage("coin.png");
-        imageMode(CORNER);
-        image(new_coin_images[i][j], i * c_w, j * c_h, c_w, c_h);
-      }
+    if (mouseX >= CELL_WIDTH && mouseX <= ARENA_WIDTH - CELL_WIDTH && mouseY >= CELL_HEIGHT && mouseY <= ARENA_HEIGHT - CELL_HEIGHT) {
+      if (!SIMULATE_FLAG) 
+        placeCoin();
     }
   }
-
-  arrayCopy(new_coin_images, coin_images);
 }
 

@@ -15,28 +15,32 @@ int cell_height() {
 }
 
 int max_grid_X() {
-  return arena_width() / cell_width() + 1;
+  return arena_width() / cell_width() - 2;
 }
 
 int max_grid_Y() {
-  return arena_height() / cell_height() + 1;
+  return arena_height() / cell_height() - 2;
 }
 
-void setGrid() {
-  // Setting up background and colors
-  background(0);
-  size(640, 480);
-  stroke(255);
-  
-  int a_w = arena_width();
-  int c_w = cell_width();
-  int a_h = arena_height();
-  int c_h = cell_height();
-  
-  for (int i = 0; i <= a_w; i += c_w) 
-     line(i, 0, i, a_h);
- 
-  for (int i = 0; i <= a_h; i += c_h)
-     line(0, i, a_w, i);
+int min_grid_X() {
+  return 1;
+}
 
+int min_grid_Y() {
+  return 1;
+}
+
+void drawCoins() {
+  reset();
+  int CELL_WIDTH = cell_width();
+  int CELL_HEIGHT = cell_height();  
+  
+  for (int i = min_grid_X(); i <= max_grid_X(); i++) {
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
+      if (coin_images[i][j] != null) {
+        imageMode(CORNER);
+        image(coin_images[i][j], i * CELL_WIDTH, j * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+      }
+    }
+  }
 }

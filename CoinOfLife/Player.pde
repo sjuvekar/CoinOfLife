@@ -68,6 +68,10 @@ class Player {
   }
 
   // Getters
+  public int get_a_width() { return a_width; }
+  public int get_c_width() { return c_width; }
+  public int get_a_height() { return a_height; }
+  public int get_c_height() { return c_height; }
   public boolean[][] getAlive() { return alive;}
   public boolean[][] getEverAlive() { return ever_alive; }
   public Button get_play_button() { return play_button; }

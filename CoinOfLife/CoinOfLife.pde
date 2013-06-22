@@ -18,12 +18,7 @@ void setup() {
 }
 
 void draw() {
-  int a_width = arena_width();
-  int c_width = cell_width();
-  int a_height = arena_height();
-  int c_height = cell_height();
-  
-  drawer.drawit(a_width, c_width, a_height, c_height);
+  drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
 }
 
 void mousePressed() {

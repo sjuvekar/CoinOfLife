@@ -1,4 +1,4 @@
-class Drawer {
+public class Drawer {
   // Constructor
   public Drawer(Player p) {
     player = p;

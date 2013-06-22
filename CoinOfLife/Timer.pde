@@ -1,5 +1,5 @@
 
-class Timer {
+public class Timer {
   // Constructor
   public Timer(int x, int y, int max_value) {
     this.x = x;

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-class Player {
+public class Player {
 
   // Dimensions of grid
   private int max_grid_x, max_grid_y;
@@ -8,12 +8,12 @@ class Player {
   private int a_width, a_height;
   // Dimensions of cell
   private int c_width, c_height;
-  
+
   // Arrays to check if a cell is dead/alive
   private boolean alive[][];
   private boolean ever_alive[][];
   private ArrayList<Integer> last_X, last_Y;
-  
+
   // Maintain the state
   private int state;
   final static int INIT = 0;
@@ -23,11 +23,11 @@ class Player {
 
   // Buttons
   private Button play_button, undo_button, reset_button;
-  
+
   // Timer to check if game has ended
   private Timer timer;
   final static int MAX_TIMER = 100;
-  
+
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
     this.a_width = a_width;
@@ -49,7 +49,7 @@ class Player {
 
     // Create initial state
     state = INIT;
-    
+
     // Create buttons  
     int button_x = a_width;
     int play_y = c_height;
@@ -60,7 +60,7 @@ class Player {
     play_button = new Button(button_x, play_y, button_width, button_height, "Play");
     undo_button = new Button(button_x, undo_y, button_width, button_height, "Undo");
     reset_button = new Button(button_x, reset_y, button_width, button_height, "Reset");
-    
+
     // Create timer
     int a_width = arena_width();
     int a_height = arena_height();
@@ -70,17 +70,39 @@ class Player {
   }
 
   // Getters
-  public int get_a_width() { return a_width; }
-  public int get_c_width() { return c_width; }
-  public int get_a_height() { return a_height; }
-  public int get_c_height() { return c_height; }
-  public boolean[][] getAlive() { return alive;}
-  public boolean[][] getEverAlive() { return ever_alive; }
-  public Button get_play_button() { return play_button; }
-  public Button get_undo_button() { return undo_button; }
-  public Button get_reset_button() { return reset_button; }
-  public Timer getTimer() { return timer; }
-  
+  public int get_a_width() { 
+    return a_width;
+  }
+  public int get_c_width() { 
+    return c_width;
+  }
+  public int get_a_height() { 
+    return a_height;
+  }
+  public int get_c_height() { 
+    return c_height;
+  }
+  public boolean[][] getAlive() { 
+    return alive;
+  }
+  public boolean[][] getEverAlive() { 
+    return ever_alive;
+  }
+  public Button get_play_button() { 
+    return play_button;
+  }
+  public Button get_undo_button() { 
+    return undo_button;
+  }
+  public Button get_reset_button() { 
+    return reset_button;
+  }
+  public Timer getTimer() { 
+    return timer;
+  }
+  public int getState() {
+    return state;
+  }
   // Place a coin on cell
   public void placeCoin() {
     if (state != PLAYING) return;
@@ -150,13 +172,29 @@ class Player {
     }
     return ((alive[c_i][c_j] && alive_neighbors == 2) || alive_neighbors == 3);
   }
-  
+
 
   public void simulate() {
     if (state != SIMULATING) return;
     boolean temp_alive[][] = new boolean[max_grid_x][max_grid_y];
+    for (int i = 1; i <= max_grid_x; i++) {
+      for (int j = 1; j <= max_grid_y; j++) {
+        if (is_alive(i, j)) {
+          temp_alive[i][j] = true;
+        }
+        else
+          temp_alive[i][j] = false;
+      }
+    }
+
+    arrayCopy(temp_alive, alive);
+    // Advance time for timer, check if it has timed out and set the state
+    if (timer.isTimeout()) 
+      state = TIMEOUT;
+    else
+      timer.advanceit();
   }
-  
+
   // Most important method. Effectively keeps state
   public void play() {
   }

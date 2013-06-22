@@ -1,4 +1,4 @@
-class Button {
+public class Button {
 
   // Constructor
   public Button(int x, int y, int wd, int ht, String txt) {

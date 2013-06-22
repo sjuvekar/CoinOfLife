@@ -11,8 +11,9 @@ void setup() {
   int c_width = cell_width();
   int a_height = arena_height();
   int c_height = cell_height();
-  
-  player = new Player(a_width, c_width, a_height, c_height, max_grid_X(), max_grid_Y());
+  int max_grid_x = max_grid_X();
+  int max_grid_y = max_grid_Y();
+  player = new Player(a_width, c_width, a_height, c_height, max_grid_x, max_grid_y);
   drawer = new Drawer(player);
 }
 

@@ -2,14 +2,20 @@ import java.util.ArrayList;
 
 class Player {
 
+  // Dimensions of grid
+  private int max_grid_x, max_grid_y;
+  // Dimensions of arena
+  private int a_width, a_height;
+  // Dimensions of cell
+  private int c_width, c_height;
+  
+  // Arrays to check if a cell is dead/alive
   private boolean alive[][];
   private boolean ever_alive[][];
   private ArrayList<Integer> last_X, last_Y;
-  private int max_grid_x, max_grid_y;
   
   // Maintain the state
   private int state;
-
   final static int INIT = 0;
   final static int PLAYING = 1;
   final static int SIMULATING = 2;
@@ -24,6 +30,10 @@ class Player {
   
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
+    this.a_width = a_width;
+    this.c_width = c_width;
+    this.a_height = a_height;
+    this.c_height = c_height;
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
     alive = new boolean[max_grid_x][max_grid_y];

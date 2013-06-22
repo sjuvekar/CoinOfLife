@@ -6,7 +6,7 @@ class Player {
   private boolean ever_alive[][];
   private ArrayList<Integer> last_X, last_Y;
   private int max_grid_x, max_grid_y;
-
+  
   // Maintain the state
   private int state;
 
@@ -15,22 +15,20 @@ class Player {
   final static int SIMULATING = 2;
   final static int TIMEOPUT = 3;
 
+  // Buttons
+  private Button play_button, undo_button, reset_button;
+  
   // Timer to check if game has ended
   private Timer timer;
   final static int MAX_TIMER = 100;
-
-  // Getters
-  public boolean[][] getAlive() { 
-    return alive;
-  }
-  public boolean[][] getEverAlive() { 
-    return ever_alive;
-  }
-  public Timer getTimer() { 
-    return timer;
-  }
-
+  
+  // Constructor
   public Player(int m_grid_x, int m_grid_y) {
+    int a_width = arena_width();
+    int c_width = cell_width();
+    int a_height = arena_height();
+    int c_height = cell_height();
+    
     max_grid_x = m_grid_x;
     max_grid_y = m_grid_y;
     alive = new boolean[max_grid_x][max_grid_y];
@@ -45,6 +43,17 @@ class Player {
     last_X = new ArrayList();
     last_Y = new ArrayList();
 
+    // Create buttons  
+    int button_x = a_width;
+    int play_y = c_height;
+    int undo_y = c_height * 4;
+    int reset_y = (int)(c_height * 7.5);
+    int button_width = width - a_width - c_width;
+    int button_height = c_width * 2;
+    play_button = new Button(button_x, play_y, button_width, button_height, "Play");
+    undo_button = new Button(button_x, undo_y, button_width, button_height, "Undo");
+    reset_button = new Button(button_x, reset_y, button_width, button_height, "Reset");
+    
     // Create timer
     int a_width = arena_width();
     int a_height = arena_height();
@@ -53,6 +62,15 @@ class Player {
     timer = new Timer(timer_x, timer_y, MAX_TIMER);
   }
 
+  // Getters
+  public boolean[][] getAlive() { return alive;}
+  public boolean[][] getEverAlive() { return ever_alive; }
+  public Button get_play_button() { return play_button; }
+  public Button get_undo_button() { return undo_button; }
+  public Button get_reset_button() { return reset_button; }
+  public Timer getTimer() { return timer; }
+  
+  
   public void placeCoin() {
     if (state != PLAYING) return;
     int c_width = cell_width();

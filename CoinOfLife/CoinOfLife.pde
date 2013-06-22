@@ -84,10 +84,12 @@ void draw() {
     if (TIMER >= MAX_TIMER) {
       //gameProgressedPlayer.stop();
       //achievementPlayer.play(); 
-      if (ACHIEVEMENT_FLAG) 
+      if (ACHIEVEMENT_FLAG) {
         noLoop();
-      else
+      }
+      else {
         advanceScore();
+      }
     }
     else {
       advanceCells();
@@ -113,8 +115,9 @@ void mousePressed() {
     int CELL_HEIGHT = cell_height();  
 
     if (mouseX >= CELL_WIDTH && mouseX <= ARENA_WIDTH - CELL_WIDTH && mouseY >= CELL_HEIGHT && mouseY <= ARENA_HEIGHT - CELL_HEIGHT) {
-      if (!SIMULATE_FLAG) 
+      if (!SIMULATE_FLAG) {
         placeCoin();
+      }
       //coinPlacedPlayer.cue(0);
       //coinPlacedPlayer.play();
     }

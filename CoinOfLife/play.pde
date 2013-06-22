@@ -24,7 +24,7 @@ void placeCoin() {
   int CELL_WIDTH = cell_width();
   int CELL_HEIGHT = cell_height();
   // Setup last position and alive array
-  LAST_IMG_X =(int) (mouseX /  CELL_WIDTH);
+  LAST_IMG_X = (int) (mouseX /  CELL_WIDTH);
   LAST_IMG_Y = (int) (mouseY / CELL_HEIGHT);
   IS_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = true;
   IS_EVER_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = true;

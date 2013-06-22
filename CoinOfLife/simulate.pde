@@ -11,18 +11,22 @@ boolean is_alive(int c_i, int c_j) {
 
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
-      if (i == 0 && j == 0)
+      if (i == 0 && j == 0) {
         continue;
+      }
       int new_ci = (c_i + i) % MAX_X;
       int new_cj = (c_j + j) % MAX_Y;
       // Adjust the indices if out of arena
-      if (new_ci < MIN_X)
+      if (new_ci < MIN_X) {
         new_ci += MAX_X;
-      if (new_cj < MIN_Y)
+      }
+      if (new_cj < MIN_Y) {
         new_cj += MAX_Y;
-
-      if (IS_ALIVE_ARRAY[new_ci][new_cj])
+      }
+      
+      if (IS_ALIVE_ARRAY[new_ci][new_cj]) {
         alive_neighbors++;
+      }
     }
   }
   return ((IS_ALIVE_ARRAY[c_i][c_j] && alive_neighbors == 2) || alive_neighbors == 3);
@@ -43,8 +47,9 @@ void advanceCells() {
     for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
       if (is_alive(i, j)) {
         TEMP_IS_ALIVE_ARRAY[i][j] = true;
-        if (!IS_EVER_ALIVE_ARRAY[i][j])
+        if (!IS_EVER_ALIVE_ARRAY[i][j]) {
           CELLS_COVERED++;
+        }
         IS_EVER_ALIVE_ARRAY[i][j] = true;
       }
       else
@@ -65,8 +70,9 @@ void advanceCells() {
    SCORE++;
    CELLS_COVERED--;
    
-   if (CELLS_COVERED == 0)
+   if (CELLS_COVERED == 0) {
         ACHIEVEMENT_FLAG = true;
+   }
    else {
      fill(0);
      stroke(0);
@@ -75,7 +81,7 @@ void advanceCells() {
      int[] digits = {};
      while (s >= 0) {
        digits = append(digits, s % 10);
-       s /= 10;
+       s = (int)(s / 10);
        if (s == 0)
          break;
      }

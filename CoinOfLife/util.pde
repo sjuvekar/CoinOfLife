@@ -15,11 +15,11 @@ int cell_height() {
 }
 
 int max_grid_X() {
-  return arena_width() / cell_width() - 2;
+  return (int)(arena_width() / cell_width()) - 2;
 }
 
 int max_grid_Y() {
-  return arena_height() / cell_height() - 2;
+  return (int)(arena_height() / cell_height()) - 2;
 }
 
 int min_grid_X() {
@@ -44,11 +44,13 @@ void reset() {
   int ARENA_HEIGHT = arena_height();
   int CELL_HEIGHT = cell_height();  
 
-  for (int i = CELL_WIDTH; i < ARENA_WIDTH; i += CELL_WIDTH)  
+  for (int i = CELL_WIDTH; i < ARENA_WIDTH; i += CELL_WIDTH) { 
     line(i, CELL_HEIGHT, i, ARENA_HEIGHT - CELL_HEIGHT);
+  }
 
-  for (int i = CELL_HEIGHT; i < ARENA_HEIGHT; i += CELL_HEIGHT)
+  for (int i = CELL_HEIGHT; i < ARENA_HEIGHT; i += CELL_HEIGHT) {
     line(CELL_WIDTH, i, ARENA_WIDTH - CELL_WIDTH, i);
+  }
   
   TIMER_X = (int) (ARENA_WIDTH);
   TIMER_Y = (int) (ARENA_HEIGHT * 0.9);
@@ -62,7 +64,7 @@ void reset() {
   BUTTON_HEIGHT = CELL_WIDTH * 2;
   BUTTON_CURVATURE = CELL_WIDTH;
   SCORE_X = TIMER_X;
-  SCORE_Y = TIMER_Y / 2;
+  SCORE_Y = (int)(TIMER_Y / 2);
   SCORE_WIDTH = CELL_WIDTH * 2;
   SCORE_HEIGHT = CELL_HEIGHT * 2;
   
@@ -93,12 +95,14 @@ void drawCoins() {
   int CELL_WIDTH = cell_width();
   int CELL_HEIGHT = cell_height();  
   
-  for (int i = min_grid_X(); i <= max_grid_X(); i++)
-    for (int j = min_grid_Y(); j <= max_grid_Y(); j++)
+  for (int i = min_grid_X(); i <= max_grid_X(); i++) {
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
       if (IS_EVER_ALIVE_ARRAY[i][j]) {
         fill(50, 50, 50);
         rect(i * CELL_WIDTH, j * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
       }
+    }
+  }
   
   for (int i = min_grid_X(); i <= max_grid_X(); i++) {
     for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {

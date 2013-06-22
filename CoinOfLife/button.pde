@@ -3,7 +3,6 @@ void createButton(int x, int y, String s) {
   int CELL_WIDTH = cell_width();
   int CELL_HEIGHT = cell_height();
   stroke(255);
-  //fill(0);
   //rect(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_CURVATURE);
   //fill(255);
   image(BUTTON_IMAGE, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);

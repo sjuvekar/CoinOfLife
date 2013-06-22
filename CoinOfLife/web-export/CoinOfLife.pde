@@ -32,6 +32,7 @@ int BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_CURVATURE;
 
 // Score Parameters
 int SCORE_X, SCORE_Y;
+int SCORE_WIDTH, SCORE_HEIGHT;
 
 // Cells covered during the game
 int CELLS_COVERED;
@@ -81,12 +82,14 @@ void draw() {
   if (SIMULATE_FLAG) {
     //gameProgressedPlayer.play();
     if (TIMER >= MAX_TIMER) {
-      gameProgressedPlayer.stop();
+      //gameProgressedPlayer.stop();
       //achievementPlayer.play(); 
-      if (ACHIEVEMENT_FLAG) 
+      if (ACHIEVEMENT_FLAG) {
         noLoop();
-      else
+      }
+      else {
         advanceScore();
+      }
     }
     else {
       advanceCells();
@@ -112,8 +115,9 @@ void mousePressed() {
     int CELL_HEIGHT = cell_height();  
 
     if (mouseX >= CELL_WIDTH && mouseX <= ARENA_WIDTH - CELL_WIDTH && mouseY >= CELL_HEIGHT && mouseY <= ARENA_HEIGHT - CELL_HEIGHT) {
-      if (!SIMULATE_FLAG) 
+      if (!SIMULATE_FLAG) {
         placeCoin();
+      }
       //coinPlacedPlayer.cue(0);
       //coinPlacedPlayer.play();
     }
@@ -1313,7 +1317,6 @@ void createButton(int x, int y, String s) {
   int CELL_WIDTH = cell_width();
   int CELL_HEIGHT = cell_height();
   stroke(255);
-  //fill(0);
   //rect(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_CURVATURE);
   //fill(255);
   image(BUTTON_IMAGE, x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -1337,6 +1340,11 @@ boolean insideReset() {
  ***/
 void resetPressed() {
   reset();
+  for (int i = min_grid_X(); i <= max_grid_X(); i++)
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
+      IS_ALIVE_ARRAY[i][j] = false;
+      IS_EVER_ALIVE_ARRAY[i][j] = false;
+    }
 }
 
 /***
@@ -1353,7 +1361,7 @@ void placeCoin() {
   int CELL_WIDTH = cell_width();
   int CELL_HEIGHT = cell_height();
   // Setup last position and alive array
-  LAST_IMG_X =(int) (mouseX /  CELL_WIDTH);
+  LAST_IMG_X = (int) (mouseX /  CELL_WIDTH);
   LAST_IMG_Y = (int) (mouseY / CELL_HEIGHT);
   IS_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = true;
   IS_EVER_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = true;
@@ -1376,18 +1384,22 @@ boolean is_alive(int c_i, int c_j) {
 
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
-      if (i == 0 && j == 0)
+      if (i == 0 && j == 0) {
         continue;
+      }
       int new_ci = (c_i + i) % MAX_X;
       int new_cj = (c_j + j) % MAX_Y;
       // Adjust the indices if out of arena
-      if (new_ci < MIN_X)
+      if (new_ci < MIN_X) {
         new_ci += MAX_X;
-      if (new_cj < MIN_Y)
+      }
+      if (new_cj < MIN_Y) {
         new_cj += MAX_Y;
-
-      if (IS_ALIVE_ARRAY[new_ci][new_cj])
+      }
+      
+      if (IS_ALIVE_ARRAY[new_ci][new_cj]) {
         alive_neighbors++;
+      }
     }
   }
   return ((IS_ALIVE_ARRAY[c_i][c_j] && alive_neighbors == 2) || alive_neighbors == 3);
@@ -1408,8 +1420,9 @@ void advanceCells() {
     for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
       if (is_alive(i, j)) {
         TEMP_IS_ALIVE_ARRAY[i][j] = true;
-        if (!IS_EVER_ALIVE_ARRAY[i][j])
+        if (!IS_EVER_ALIVE_ARRAY[i][j]) {
           CELLS_COVERED++;
+        }
         IS_EVER_ALIVE_ARRAY[i][j] = true;
       }
       else
@@ -1429,10 +1442,10 @@ void advanceCells() {
    int CELL_HEIGHT = cell_height();
    SCORE++;
    CELLS_COVERED--;
-   SCORE_X = TIMER_X;
    
-   if (CELLS_COVERED == 0)
+   if (CELLS_COVERED == 0) {
         ACHIEVEMENT_FLAG = true;
+   }
    else {
      fill(0);
      stroke(0);
@@ -1441,14 +1454,14 @@ void advanceCells() {
      int[] digits = {};
      while (s >= 0) {
        digits = append(digits, s % 10);
-       s /= 10;
+       s = (int)(s / 10);
        if (s == 0)
          break;
      }
      
-     image(COIN_IMAGE, SCORE_X, TIMER_Y/2, CELL_WIDTH * 2, CELL_HEIGHT * 2);
+     image(COIN_IMAGE, SCORE_X, SCORE_Y, SCORE_WIDTH, SCORE_HEIGHT);
      for (int j = digits.length - 1; j >= 0; j--) {
-       image(DIGIT_IMAGES[digits[j]], TIMER_X + (digits.length - j) * 2 * CELL_WIDTH, TIMER_Y/2, CELL_WIDTH * 2, CELL_HEIGHT * 2);
+       image(DIGIT_IMAGES[digits[j]], SCORE_X + (digits.length - j) * SCORE_WIDTH, SCORE_Y, SCORE_WIDTH, SCORE_HEIGHT);
      }
    }
  }
@@ -1469,11 +1482,11 @@ int cell_height() {
 }
 
 int max_grid_X() {
-  return arena_width() / cell_width() - 2;
+  return (int)(arena_width() / cell_width()) - 2;
 }
 
 int max_grid_Y() {
-  return arena_height() / cell_height() - 2;
+  return (int)(arena_height() / cell_height()) - 2;
 }
 
 int min_grid_X() {
@@ -1498,11 +1511,13 @@ void reset() {
   int ARENA_HEIGHT = arena_height();
   int CELL_HEIGHT = cell_height();  
 
-  for (int i = CELL_WIDTH; i < ARENA_WIDTH; i += CELL_WIDTH)  
+  for (int i = CELL_WIDTH; i < ARENA_WIDTH; i += CELL_WIDTH) { 
     line(i, CELL_HEIGHT, i, ARENA_HEIGHT - CELL_HEIGHT);
+  }
 
-  for (int i = CELL_HEIGHT; i < ARENA_HEIGHT; i += CELL_HEIGHT)
+  for (int i = CELL_HEIGHT; i < ARENA_HEIGHT; i += CELL_HEIGHT) {
     line(CELL_WIDTH, i, ARENA_WIDTH - CELL_WIDTH, i);
+  }
   
   TIMER_X = (int) (ARENA_WIDTH);
   TIMER_Y = (int) (ARENA_HEIGHT * 0.9);
@@ -1515,6 +1530,10 @@ void reset() {
   BUTTON_WIDTH = width - ARENA_WIDTH - CELL_WIDTH;
   BUTTON_HEIGHT = CELL_WIDTH * 2;
   BUTTON_CURVATURE = CELL_WIDTH;
+  SCORE_X = TIMER_X;
+  SCORE_Y = (int)(TIMER_Y / 2);
+  SCORE_WIDTH = CELL_WIDTH * 2;
+  SCORE_HEIGHT = CELL_HEIGHT * 2;
   
   // Create Buttons
   createButton(PLAY_X, PLAY_Y, "Play");
@@ -1543,12 +1562,14 @@ void drawCoins() {
   int CELL_WIDTH = cell_width();
   int CELL_HEIGHT = cell_height();  
   
-  for (int i = min_grid_X(); i <= max_grid_X(); i++)
-    for (int j = min_grid_Y(); j <= max_grid_Y(); j++)
+  for (int i = min_grid_X(); i <= max_grid_X(); i++) {
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
       if (IS_EVER_ALIVE_ARRAY[i][j]) {
         fill(50, 50, 50);
         rect(i * CELL_WIDTH, j * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
       }
+    }
+  }
   
   for (int i = min_grid_X(); i <= max_grid_X(); i++) {
     for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
@@ -1567,6 +1588,7 @@ void drawCoins() {
  ***/
 void undo() {
   IS_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = false;
+  IS_EVER_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = false;
   drawCoins();
 }
 

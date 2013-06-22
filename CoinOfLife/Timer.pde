@@ -18,11 +18,11 @@ class Timer {
     rect(x, y + c_height, (int)( (width - a_width - c_width) * (max_value - curr_value) / max_value), c_height);
   }
   
-  public void advance() {
+  public void advanceit() {
     curr_value++;
   }
   
-  public boolean timeout() {
+  public boolean isTimeout() {
     return (curr_value >= max_value);
   }
 }

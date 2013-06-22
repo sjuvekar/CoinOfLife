@@ -18,6 +18,11 @@ public class Button {
     text(txt, x + 3 * c_width, (int)(y + 1.5 * c_height));
   }
   
+  // check if mouse-cliked inside the button
+  public boolean mouseClickedInside() {
+    return (mouseX >= x && mouseX <= x + wd && mouseY >= y && mouseY <= y + ht);
+  }
+  
   //private
   private int x;
   private int y;

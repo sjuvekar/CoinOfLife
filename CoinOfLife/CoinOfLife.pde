@@ -18,8 +18,11 @@ void setup() {
 }
 
 void draw() {
-  if (player.getState() != Player.TIMEOUT)
+  if (player.getState() != Player.TIMEOUT) {
+    if (player.getState() == Player.SIMULATING) 
+      player.simulate();
     drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
+  }
 }
 
 void mousePressed() {

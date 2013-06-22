@@ -2,30 +2,12 @@ import java.util.ArrayList;
 
 public class Player {
 
-  // Dimensions of grid
-  private int max_grid_x, max_grid_y;
-  // Dimensions of arena
-  private int a_width, a_height;
-  // Dimensions of cell
-  private int c_width, c_height;
-
-  // Arrays to check if a cell is dead/alive
-  private boolean alive[][];
-  private boolean ever_alive[][];
-  private ArrayList<Integer> last_X, last_Y;
-
-  // Maintain the state
-  private int state;
+  // Constants
   final static int INIT = 0;
   final static int PLAYING = 1;
   final static int SIMULATING = 2;
-  final static int TIMEOPUT = 3;
+  final static int TIMEOUT = 3;
 
-  // Buttons
-  private Button play_button, undo_button, reset_button;
-
-  // Timer to check if game has ended
-  private Timer timer;
   final static int MAX_TIMER = 100;
 
   // Constructor
@@ -36,8 +18,8 @@ public class Player {
     this.c_height = c_height;
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
-    alive = new boolean[max_grid_x][max_grid_y];
-    ever_alive = new boolean[max_grid_x][max_grid_y];
+    alive = new boolean[max_grid_x+2][max_grid_y+2];
+    ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;
@@ -62,8 +44,6 @@ public class Player {
     reset_button = new Button(button_x, reset_y, button_width, button_height, "Reset");
 
     // Create timer
-    int a_width = arena_width();
-    int a_height = arena_height();
     int timer_x = a_width;
     int timer_y = (int)(a_height * 0.9);
     timer = new Timer(timer_x, timer_y, MAX_TIMER);
@@ -145,24 +125,20 @@ public class Player {
   // Check if a cell is alive
   private boolean isAlive(int c_i, int c_j) {
     int alive_neighbors = 0;
-    int max_x = alive.length;
-    int max_y = alive[0].length;
-    int min_x = min_grid_X();
-    int min_y = min_grid_Y();
-
+    
     for (int i = -1; i <= 1; i++) {
       for (int j = -1; j <= 1; j++) {
         if (i == 0 && j == 0) {
           continue;
         }
-        int new_ci = (c_i + i) % max_x;
-        int new_cj = (c_j + j) % max_y;
+        int new_ci = (c_i + i) % max_grid_x;
+        int new_cj = (c_j + j) % max_grid_y;
         // Adjust the indices if out of arena
-        if (new_ci < min_x) {
-          new_ci += max_x;
+        if (new_ci < 1) {
+          new_ci += max_grid_x;
         }
-        if (new_cj < min_y) {
-          new_cj += max_y;
+        if (new_cj < 1) {
+          new_cj += max_grid_y;
         }
 
         if (alive[new_ci][new_cj]) {
@@ -176,17 +152,16 @@ public class Player {
 
   public void simulate() {
     if (state != SIMULATING) return;
-    boolean temp_alive[][] = new boolean[max_grid_x][max_grid_y];
+    boolean temp_alive[][] = new boolean[max_grid_x+2][max_grid_y+2];
     for (int i = 1; i <= max_grid_x; i++) {
       for (int j = 1; j <= max_grid_y; j++) {
-        if (is_alive(i, j)) {
+        if (isAlive(i, j)) {
           temp_alive[i][j] = true;
         }
         else
           temp_alive[i][j] = false;
       }
     }
-
     arrayCopy(temp_alive, alive);
     // Advance time for timer, check if it has timed out and set the state
     if (timer.isTimeout()) 
@@ -197,6 +172,43 @@ public class Player {
 
   // Most important method. Effectively keeps state
   public void play() {
+    if (state != INIT && state != PLAYING) return;
+    
+    if (play_button.mouseClickedInside()) {
+      state = SIMULATING;
+    }
+    else if (undo_button.mouseClickedInside()) {
+      state = PLAYING;
+      undo();
+    }
+    else if (reset_button.mouseClickedInside()) {
+      state = PLAYING;
+      reset();
+    }
+    
   }
+  
+  // Private
+  // Dimensions of grid
+  private int max_grid_x, max_grid_y;
+  // Dimensions of arena
+  private int a_width, a_height;
+  // Dimensions of cell
+  private int c_width, c_height;
+
+  // Arrays to check if a cell is dead/alive
+  private boolean alive[][];
+  private boolean ever_alive[][];
+  private ArrayList<Integer> last_X, last_Y;
+
+  // Maintain the state
+  private int state;
+ 
+  // Buttons
+  private Button play_button, undo_button, reset_button;
+
+  // Timer to check if game has ended
+  private Timer timer;
+     
 }
 

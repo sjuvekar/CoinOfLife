@@ -3,6 +3,11 @@
  ***/
 void resetPressed() {
   reset();
+  for (int i = min_grid_X(); i <= max_grid_X(); i++)
+    for (int j = min_grid_Y(); j <= max_grid_Y(); j++) {
+      IS_ALIVE_ARRAY[i][j] = false;
+      IS_EVER_ALIVE_ARRAY[i][j] = false;
+    }
 }
 
 /***

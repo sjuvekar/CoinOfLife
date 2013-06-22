@@ -117,6 +117,7 @@ void drawCoins() {
  ***/
 void undo() {
   IS_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = false;
+  IS_EVER_ALIVE_ARRAY[LAST_IMG_X][LAST_IMG_Y] = false;
   drawCoins();
 }
 

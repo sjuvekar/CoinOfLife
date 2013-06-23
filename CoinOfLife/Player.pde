@@ -20,6 +20,7 @@ public class Player {
     this.max_grid_y = max_grid_y;
     alive = new boolean[max_grid_x+2][max_grid_y+2];
     ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
+    
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;
@@ -161,7 +162,7 @@ public class Player {
         else
           temp_alive[i][j] = false;
       }
-    }
+    }  
     arrayCopy(temp_alive, alive);
     // Advance time for timer, check if it has timed out and set the state
     if (timer.isTimeout()) 

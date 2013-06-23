@@ -167,6 +167,10 @@ public class Player {
       for (int j = 1; j <= max_grid_y; j++) {
         if (isAlive(i, j)) {
           temp_alive[i][j] = true;
+          if (!ever_alive[i][j]) {
+            ever_alive[i][j] = true;
+            scorer.incrementMaxScore();
+          }
         }
         else
           temp_alive[i][j] = false;
@@ -204,9 +208,11 @@ public class Player {
   // Advance scorer after timeout
   public void advanceScorer() {
     scorer.incrementScore();
-    if (scorer.getScore() == 100) 
+    if (scorer.getScore() == scorer.getMaxScore()) 
       state = FINISHED;
   }
+  
+  
   // Private
   // Dimensions of grid
   private int max_grid_x, max_grid_y;

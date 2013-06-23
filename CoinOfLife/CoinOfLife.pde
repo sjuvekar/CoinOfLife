@@ -24,7 +24,7 @@ void draw() {
     player.advanceScorer();
   }
   drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
-  if (player.getState() == Player.SINISHED) {
+  if (player.getState() == Player.FINISHED) {
     noLoop();
   }
 }

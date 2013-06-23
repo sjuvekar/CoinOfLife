@@ -22,12 +22,19 @@ public class Drawer {
 
     // Draw coins in cells
     boolean[][] alive = player.getAlive();
-    for (int i = 0; i < alive.length; i++)
-      for (int j = 0; j < alive[i].length; j++)
+    boolean[][] ever_alive = player.getEverAlive();
+    for (int i = 0; i < alive.length; i++) {
+      for (int j = 0; j < alive[i].length; j++) {
+        if (ever_alive[i][j]) {
+          fill(75, 75, 75);
+          rect(i * c_width, j * c_height, c_width, c_height);
+        }
         if (alive[i][j]) {
           imageMode(CORNER);
           image(coin_image, i * c_width, j * c_height, c_width, c_height);
         }
+      }
+    }
     
     // Draw the buttons
     player.get_play_button().drawit(a_width, c_width, a_height, c_height);

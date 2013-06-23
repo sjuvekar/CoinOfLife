@@ -13,6 +13,7 @@ public class Button {
   // drawit
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     stroke(255);
+    fill(0);
     image(button_image, x, y, wd, ht);
     textSize(20);
     text(txt, x + 3 * c_width, (int)(y + 1.5 * c_height));

@@ -17,10 +17,18 @@ public class Scorer {
     return score;
   }
   
+  public int getMaxScore() { 
+    return max_score;
+  }
+  
   public void incrementScore() {
     score++;
   }
 
+  public void incrementMaxScore() {
+    max_score++;
+  }
+  
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     fill(0);
     stroke(0);
@@ -45,6 +53,7 @@ public class Scorer {
   private int wd;
   private int ht;
   private int score;
+  private int max_score;
   private PImage coin_image;
   private PImage[] digit_images;
 }

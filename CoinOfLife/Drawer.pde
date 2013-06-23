@@ -39,6 +39,9 @@ public class Drawer {
 
     // Draw the timer
     player.getTimer().drawit(a_width, c_width, a_height, c_height);
+    
+    // Draw the scorer
+    player.getScorer().drawit(a_width, c_width, a_height, c_height);
   }
 
   //private

@@ -7,6 +7,7 @@ public class Player {
   final static int PLAYING = 1;
   final static int SIMULATING = 2;
   final static int TIMEOUT = 3;
+  final static int FINISHED = 4;
 
   final static int MAX_TIMER = 100;
 
@@ -48,6 +49,11 @@ public class Player {
     int timer_x = a_width;
     int timer_y = (int)(a_height * 0.9);
     timer = new Timer(timer_x, timer_y, MAX_TIMER);
+    
+    // Create Scorer
+    int scorer_x = a_width;
+    int scorer_y = (int)(a_height * 0.5);
+    scorer = new Scorer(scorer_x, scorer_y);
   }
 
   // Getters
@@ -80,6 +86,9 @@ public class Player {
   }
   public Timer getTimer() { 
     return timer;
+  }
+  public Timer getScorer() { 
+    return scorer;
   }
   public int getState() {
     return state;
@@ -214,5 +223,7 @@ public class Player {
   // Timer to check if game has ended
   private Timer timer;
      
+  // Scorer
+  private Scorer scorer;
 }
 

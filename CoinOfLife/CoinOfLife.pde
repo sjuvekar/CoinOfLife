@@ -18,10 +18,13 @@ void setup() {
 }
 
 void draw() {
-  if (player.getState() == player.SIMULATING) 
+  if (player.getState() == Player.SIMULATING) 
     player.simulate();
-  drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   if (player.getState() == Player.TIMEOUT) {
+    player.advanceScorer();
+  }
+  drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
+  if (player.getState() == Player.SINISHED) {
     noLoop();
   }
 }

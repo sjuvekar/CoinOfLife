@@ -3,9 +3,6 @@ public class Drawer {
   public Drawer(Player p) {
     player = p;
     coin_image = loadImage("images/coin.png");
-    digit_images = new PImage[10];
-    for (int i = 0; i < 10; i++)
-      digit_images[i] = loadImage("images/" + i + ".png");
   }
 
   // drawit
@@ -47,6 +44,5 @@ public class Drawer {
   //private
   private Player player;
   private PImage coin_image, button_image;
-  private PImage[] digit_images;
 }
 

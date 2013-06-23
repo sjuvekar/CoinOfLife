@@ -53,7 +53,7 @@ public class Player {
     // Create Scorer
     int scorer_x = a_width;
     int scorer_y = (int)(a_height * 0.5);
-    scorer = new Scorer(scorer_x, scorer_y);
+    scorer = new Scorer(scorer_x, scorer_y, 2 * c_width, 2 * c_height);
   }
 
   // Getters
@@ -87,7 +87,7 @@ public class Player {
   public Timer getTimer() { 
     return timer;
   }
-  public Timer getScorer() { 
+  public Scorer getScorer() { 
     return scorer;
   }
   public int getState() {
@@ -180,7 +180,7 @@ public class Player {
       timer.advanceit();
   }
 
-  // Most important method. Effectively keeps state
+  // All interactions with mouse pressed
   public void play() {
     if (state != INIT && state != PLAYING) return;
     
@@ -201,6 +201,12 @@ public class Player {
     }
   }
   
+  // Advance scorer after timeout
+  public void advanceScorer() {
+    scorer.incrementScore();
+    if (scorer.getScore() == 100) 
+      state = FINISHED;
+  }
   // Private
   // Dimensions of grid
   private int max_grid_x, max_grid_y;

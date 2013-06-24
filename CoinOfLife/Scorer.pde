@@ -6,10 +6,6 @@ public class Scorer {
     this.wd = wd;
     this.ht = ht;
     score = 0;
-    coin_image = loadImage("images/coin.png");
-    digit_images = new PImage[10];
-    for (int i = 0; i < 10; i++)
-      digit_images[i] = loadImage("images/" + i + ".png");
   }
 
   // Getter
@@ -41,9 +37,9 @@ public class Scorer {
         break;
     }
     
-    image(coin_image, x, y, c_width * 2, c_height * 2);
+    image(G_COIN_IMAGE, x, y, c_width * 2, c_height * 2);
     for (int j = digits.length - 1; j >= 0; j--) {
-       image(digit_images[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
+       image(G_DIGIT_IMAGES[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
      }
   }
 
@@ -54,6 +50,4 @@ public class Scorer {
   private int ht;
   private int score;
   private int max_score;
-  private PImage coin_image;
-  private PImage[] digit_images;
 }

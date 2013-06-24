@@ -2,7 +2,6 @@ public class Drawer {
   // Constructor
   public Drawer(Player p) {
     player = p;
-    coin_image = loadImage("images/coin.png");
   }
 
   // drawit
@@ -31,7 +30,7 @@ public class Drawer {
         }
         if (alive[i][j]) {
           imageMode(CORNER);
-          image(coin_image, i * c_width, j * c_height, c_width, c_height);
+          image(G_COIN_IMAGE, i * c_width, j * c_height, c_width, c_height);
         }
       }
     }
@@ -50,6 +49,5 @@ public class Drawer {
 
   //private
   private Player player;
-  private PImage coin_image, button_image;
 }
 

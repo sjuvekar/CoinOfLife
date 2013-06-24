@@ -1,5 +1,9 @@
+/* @pjs preload="coin.png, button.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
 Player player;
 Drawer drawer;
+
+PImage G_COIN_IMAGE, G_BUTTON_IMAGE;
+PImage[] G_DIGIT_IMAGES;
 
 void setup() {
   // Setting up background and colors
@@ -7,6 +11,13 @@ void setup() {
   size(640, 480);
   stroke(255);
 
+  // Preload images
+  G_COIN_IMAGE = loadImage("coin.png");
+  G_BUTTON_IMAGE = loadImage("button.png");
+  G_DIGIT_IMAGES = new PImage[10];
+  for (int i = 0; i < 10; i++)
+    G_DIGIT_IMAGES[i] = loadImage(i + ".png");
+      
   int a_width = arena_width();
   int c_width = cell_width();
   int a_height = arena_height();

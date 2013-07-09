@@ -2,8 +2,8 @@
 Player player;
 Drawer drawer;
 
-PImage G_COIN_IMAGE, button_image;
-PImage[] digit_images;
+PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_GEM_IMAGE;
+PImage[] G_DIGIT_IMAGES;
 
 void setup() {
   // Setting up background and colors
@@ -13,10 +13,11 @@ void setup() {
 
   // Preload images
   G_COIN_IMAGE = loadImage("coin.png");
-  button_image = loadImage("button.png");
-  digit_images = new PImage[10];
+  G_BUTTON_IMAGE = loadImage("button.png");
+  G_DIGIT_IMAGES = new PImage[10];
   for (int i = 0; i < 10; i++)
-    digit_images[i] = loadImage(i + ".png");
+    G_DIGIT_IMAGES[i] = loadImage(i + ".png");
+  G_GEM_IMAGE = loadImage("gem.png");
       
   int a_width = arena_width();
   int c_width = cell_width();
@@ -59,7 +60,7 @@ public class Button {
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     stroke(255);
     fill(0);
-    image(button_image, x, y, wd, ht);
+    image(G_BUTTON_IMAGE, x, y, wd, ht);
     textSize(20);
     text(txt, x + 3 * c_width, (int)(y + 1.5 * c_height));
   }
@@ -101,15 +102,22 @@ public class Drawer {
     // Draw coins in cells
     boolean[][] alive = player.getAlive();
     boolean[][] ever_alive = player.getEverAlive();
+    int[][] gem_positions = player.getGemPositions();
+    
     for (int i = 0; i < alive.length; i++) {
       for (int j = 0; j < alive[i].length; j++) {
         if (ever_alive[i][j]) {
           fill(75, 75, 75);
           rect(i * c_width, j * c_height, c_width, c_height);
+          gem_positions[i][j] = 0;
         }
         if (alive[i][j]) {
           imageMode(CORNER);
           image(G_COIN_IMAGE, i * c_width, j * c_height, c_width, c_height);
+        }
+        if (gem_positions[i][j]) {
+          imageMode(CORNER);
+          image(G_GEM_IMAGE, i * c_width, j * c_height, c_width, c_height);
         }
       }
     }
@@ -128,8 +136,20 @@ public class Drawer {
 
   //private
   private Player player;
+  private Gem gem;
 }
 
+class Gem {
+  
+  public Gem(int[][] gem_positions) {
+    m_gem_positions = new int[gem_positions.length][gem_positions[0].length];
+    for (int i = 0; i < m_gem_positions.length; i++)
+      for (int j = 0; j < m_gem_positions[0].length; j++)
+        m_gem_positions[i][j] = gem_positions[i][j];
+  }
+  
+  private int[][] m_gem_positions;
+}
 import java.util.ArrayList;
 
 public class Player {
@@ -151,13 +171,19 @@ public class Player {
     this.c_height = c_height;
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
+    
+    // Declare arrays
     alive = new boolean[max_grid_x+2][max_grid_y+2];
     ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
+    gem_positions = new boolean[max_grid_x+2][max_grid_y+2];
     
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;
         ever_alive[i][j] = false;
+        gem_positions[i][j] = 0;
+        if (i % 3 == 1 && j % 4 == 1)
+          gem_positions[i][j] = 1;
       }
     }
     last_X = new ArrayList();
@@ -206,6 +232,9 @@ public class Player {
   }
   public boolean[][] getEverAlive() { 
     return ever_alive;
+  }
+  public int[][] getGemPositions() {
+    return gem_positions;
   }
   public Button get_play_button() { 
     return play_button;
@@ -358,6 +387,9 @@ public class Player {
   private boolean ever_alive[][];
   private ArrayList<Integer> last_X, last_Y;
 
+  // Gems and Rocks on the grid
+  private int gem_positions[][]; 
+  
   // Maintain the state
   private int state;
  
@@ -412,7 +444,7 @@ public class Scorer {
     
     image(G_COIN_IMAGE, x, y, c_width * 2, c_height * 2);
     for (int j = digits.length - 1; j >= 0; j--) {
-       image(digit_images[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
+       image(G_DIGIT_IMAGES[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
      }
   }
 

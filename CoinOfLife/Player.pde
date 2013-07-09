@@ -19,13 +19,19 @@ public class Player {
     this.c_height = c_height;
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
+    
+    // Declare arrays
     alive = new boolean[max_grid_x+2][max_grid_y+2];
     ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
+    gem_positions = new boolean[max_grid_x+2][max_grid_y+2];
     
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;
         ever_alive[i][j] = false;
+        gem_positions[i][j] = 0;
+        if (i % 3 == 1 && j % 4 == 1)
+          gem_positions[i][j] = 1;
       }
     }
     last_X = new ArrayList();
@@ -74,6 +80,9 @@ public class Player {
   }
   public boolean[][] getEverAlive() { 
     return ever_alive;
+  }
+  public int[][] getGemPositions() {
+    return gem_positions;
   }
   public Button get_play_button() { 
     return play_button;
@@ -226,6 +235,9 @@ public class Player {
   private boolean ever_alive[][];
   private ArrayList<Integer> last_X, last_Y;
 
+  // Gems and Rocks on the grid
+  private int gem_positions[][]; 
+  
   // Maintain the state
   private int state;
  

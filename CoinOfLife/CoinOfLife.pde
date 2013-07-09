@@ -2,7 +2,7 @@
 Player player;
 Drawer drawer;
 
-PImage G_COIN_IMAGE, G_BUTTON_IMAGE;
+PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_GEM_IMAGE;
 PImage[] G_DIGIT_IMAGES;
 
 void setup() {
@@ -17,6 +17,7 @@ void setup() {
   G_DIGIT_IMAGES = new PImage[10];
   for (int i = 0; i < 10; i++)
     G_DIGIT_IMAGES[i] = loadImage(i + ".png");
+  G_GEM_IMAGE = loadImage("gem.png");
       
   int a_width = arena_width();
   int c_width = cell_width();

@@ -174,11 +174,12 @@ class Button extends Widget
       imageMode(CORNER);
       //tint(imageTint);
       image(currentImage, pos.x, pos.y, imgWidth, extents.y);
-      stroke(bgColor);
       noFill();
       rect(pos.x, pos.y, imgWidth,  extents.y);
       textAlign(CENTER, CENTER);
       textSize(30);
+      //fill(212,175,55);
+      textFont(G_BUTTON_FONT);
       text(name, pos.x + 0.5*extents.x, pos.y + 0.5* extents.y);
       //noTint();
       popStyle();

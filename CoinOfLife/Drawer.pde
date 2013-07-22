@@ -26,8 +26,10 @@ public class Drawer {
     for (int i = 0; i < alive.length; i++) {
       for (int j = 0; j < alive[i].length; j++) {
         if (ever_alive[i][j]) {
+          pushStyle();
           fill(75, 75, 75);
           rect(i * c_width, j * c_height, c_width, c_height);
+          popStyle();
           gem_positions[i][j] = 0;
         }
         if (alive[i][j]) {

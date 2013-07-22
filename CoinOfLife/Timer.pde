@@ -11,10 +11,10 @@ public class Timer {
   //drawit
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     fill(197,179,88);
-    textFont(G_CLOCK_FONT);    
+    textFont(G_BUTTON_FONT, 48);    
     text("time", x, y);
     
-    fill(0, 255, 0);
+    fill(153,101,21);
     rect(x, y + c_height, (int)( (width - a_width - c_width) * (max_value - curr_value) / max_value), c_height);
   }
   

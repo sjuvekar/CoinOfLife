@@ -1,12 +1,13 @@
 public class Scorer {
 
-  public Scorer(int x, int y, int wd, int ht) {
+  public Scorer(int x, int y, int wd, int ht, PImage img) {
     this.x = x;
     this.y = y;
     this.wd = wd;
     this.ht = ht;
-    score = -1;
-    max_score = 0;
+    this.score = -1;
+    this.max_score = 0;
+    this.m_image = img;
   }
 
   // Getter
@@ -26,12 +27,10 @@ public class Scorer {
     max_score++;
   }
   
-  public void drawit(int a_width, int c_width, int a_height, int c_height) {
+  public void drawit(int c_width, int c_height) {
     fill(0);
     stroke(0);
     int s = score;
-    if (s < 0)
-      return;
     int[] digits = new int[0];
     while (s >= 0) {
       digits = append(digits, s % 10);
@@ -40,10 +39,10 @@ public class Scorer {
         break;
     }
     
-    image(G_COIN_IMAGE, x, y, c_width * 2, c_height * 2);
+    image(this.m_image, x, y, c_width * 1.5, c_height * 1.5);
     for (int j = digits.length - 1; j >= 0; j--) {
        image(G_DIGIT_IMAGES[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
-     }
+    }
   }
 
   // Private
@@ -53,4 +52,5 @@ public class Scorer {
   private int ht;
   private int score;
   private int max_score;
+  private PImage m_image;
 }

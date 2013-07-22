@@ -52,7 +52,10 @@ public class Drawer {
     player.getTimer().drawit(a_width, c_width, a_height, c_height);
     
     // Draw the scorer
-    player.getScorer().drawit(a_width, c_width, a_height, c_height);
+    player.getCoinScorer().drawit(c_width, c_height);
+    player.getGemScorer().drawit(c_width, c_height);
+    player.getDiamondScorer().drawit(c_width, c_height);
+    player.getRockScorer().drawit(c_width, c_height);
   }
 
   //private

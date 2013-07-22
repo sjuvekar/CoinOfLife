@@ -54,10 +54,16 @@ public class Player {
     int timer_y = (int)(a_height * 0.9);
     timer = new Timer(timer_x, timer_y, MAX_TIMER);
     
-    // Create Scorer
+    // Create Scorers for multiple entities
     int scorer_x = a_width;
-    int scorer_y = (int)(a_height * 0.5);
-    scorer = new Scorer(scorer_x, scorer_y, 2 * c_width, 2 * c_height);
+    int coin_scorer_y = (int)(a_height * 0.5);
+    int gem_scorer_y = coin_scorer_y + 2 * this.c_height;
+    int diamond_scorer_y = gem_scorer_y + 2 * this.c_height;
+    int rock_scorer_y = diamond_scorer_y + 2 * this.c_height;
+    coin_scorer = new Scorer(scorer_x, coin_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_COIN_IMAGE);
+    gem_scorer = new Scorer(scorer_x, gem_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_GEM_IMAGE);
+    diamond_scorer = new Scorer(scorer_x, diamond_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_DIAMOND_IMAGE);
+    rock_scorer = new Scorer(scorer_x, rock_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_ROCK_IMAGE);
   }
 
   // Getters
@@ -94,8 +100,17 @@ public class Player {
   public Timer getTimer() { 
     return timer;
   }
-  public Scorer getScorer() { 
-    return scorer;
+  public Scorer getCoinScorer() { 
+    return coin_scorer;
+  }
+  public Scorer getGemScorer() { 
+    return gem_scorer;
+  }
+  public Scorer getDiamondScorer() { 
+    return diamond_scorer;
+  }
+  public Scorer getRockScorer() { 
+    return rock_scorer;
   }
   public int getState() {
     return state;
@@ -176,7 +191,7 @@ public class Player {
           temp_alive[i][j] = true;
           if (!ever_alive[i][j]) {
             ever_alive[i][j] = true;
-            scorer.incrementMaxScore();
+            coin_scorer.incrementMaxScore();
           }
         }
         else
@@ -214,9 +229,9 @@ public class Player {
   
   // Advance scorer after timeout
   public void advanceScorer() {
-    int maxScore = scorer.getMaxScore();
-    scorer.incrementScore();
-    if (scorer.getScore() == maxScore) 
+    int maxScore = coin_scorer.getMaxScore();
+    coin_scorer.incrementScore();
+    if (coin_scorer.getScore() == maxScore) 
       state = FINISHED;  
   }
   
@@ -252,6 +267,6 @@ public class Player {
   private Timer timer;
      
   // Scorer
-  private Scorer scorer;
+  private Scorer coin_scorer, gem_scorer, diamond_scorer, rock_scorer;
 }
 

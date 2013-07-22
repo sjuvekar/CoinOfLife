@@ -30,8 +30,6 @@ public class Player {
         alive[i][j] = false;
         ever_alive[i][j] = false;
         gem_positions[i][j] = 0;
-        if (i % 3 == 1 && j % 4 == 1)
-          gem_positions[i][j] = 1;
       }
     }
     last_X = new ArrayList();

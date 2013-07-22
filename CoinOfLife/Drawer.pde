@@ -8,7 +8,6 @@ public class Drawer {
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     // Setting up background and colors
     background(0);
-    size(640, 480);
     stroke(255);
 
     // Draw all the cells

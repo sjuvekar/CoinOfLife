@@ -8,7 +8,7 @@ PImage[] G_DIGIT_IMAGES;
 void setup() {
   // Setting up background and colors
   background(0);
-  size(640, 480);
+  size(1240, 768);
   stroke(255);
 
   // Preload images

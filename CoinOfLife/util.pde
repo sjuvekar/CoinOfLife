@@ -1,5 +1,5 @@
 int arena_width() {
-  return (int)(width * 0.75);
+  return (int)(width * 0.755);
 }
 
 int arena_height() {
@@ -7,11 +7,12 @@ int arena_height() {
 }
 
 int cell_width() {
-  return 16;
+  return 24;
 }
 
 int cell_height() {
-  return (int)(cell_width() * float(arena_height()) / float(arena_width()));
+  //return (int)(cell_width() * float(arena_height()) / float(arena_width()));
+  return cell_width();
 }
 
 int max_grid_X() {

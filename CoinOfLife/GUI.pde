@@ -167,8 +167,8 @@ class Button extends Widget
     if(currentImage != null)
     {
       //float imgHeight = (extents.x*currentImage.height)/currentImage.width;
-      float imgWidth = (extents.y*currentImage.width)/currentImage.height;
-      
+      //float imgWidth = (extents.y*currentImage.width)/currentImage.height;
+      float imgWidth = extents.x;
       
       pushStyle();
       imageMode(CORNER);
@@ -177,6 +177,9 @@ class Button extends Widget
       stroke(bgColor);
       noFill();
       rect(pos.x, pos.y, imgWidth,  extents.y);
+      textAlign(CENTER, CENTER);
+      textSize(30);
+      text(name, pos.x + 0.5*extents.x, pos.y + 0.5* extents.y);
       //noTint();
       popStyle();
     }

@@ -11,7 +11,7 @@ public class Timer {
   //drawit
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     fill(197,179,88);
-    textFont(G_CLOCK_FONT, 48);    
+    textFont(G_CLOCK_FONT);    
     text("time", x, y);
     
     fill(0, 255, 0);

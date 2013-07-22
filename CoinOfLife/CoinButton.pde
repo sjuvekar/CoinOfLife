@@ -9,7 +9,7 @@ public class CoinButton {
     this.txt = txt;
     this.button = new Button(txt, x, y, wd, ht);
     this.button.setActiveImage(G_BUTTON_IMAGE);
-    //this.button.setImageTint(color(0));
+    this.button.setInactiveImage(G_BUTTON_IMAGE);
   }
 
   // drawit
@@ -24,6 +24,10 @@ public class CoinButton {
   
   // check if mouse-cliked inside the button
   public boolean mouseReleased() {
+    return this.button.mouseReleased();
+  }
+  
+  public boolean mousePressed() {
     return this.button.mouseReleased();
   }
   

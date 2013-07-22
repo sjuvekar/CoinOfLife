@@ -34,7 +34,7 @@ public class Drawer {
           imageMode(CORNER);
           image(G_COIN_IMAGE, i * c_width, j * c_height, c_width, c_height);
         }
-        if (gem_positions[i][j]) {
+        if (gem_positions[i][j] == 1) {
           imageMode(CORNER);
           image(G_GEM_IMAGE, i * c_width, j * c_height, c_width, c_height);
         }
@@ -42,9 +42,9 @@ public class Drawer {
     }
     
     // Draw the buttons
-    player.get_play_button().drawit(a_width, c_width, a_height, c_height);
-    player.get_undo_button().drawit(a_width, c_width, a_height, c_height);
-    player.get_reset_button().drawit(a_width, c_width, a_height, c_height);
+    player.get_play_button().drawit();
+    player.get_undo_button().drawit();
+    player.get_reset_button().drawit();
 
     // Draw the timer
     player.getTimer().drawit(a_width, c_width, a_height, c_height);
@@ -55,6 +55,5 @@ public class Drawer {
 
   //private
   private Player player;
-  private Gem gem;
 }
 

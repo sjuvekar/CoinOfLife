@@ -5,7 +5,8 @@ public class Scorer {
     this.y = y;
     this.wd = wd;
     this.ht = ht;
-    score = 0;
+    score = -1;
+    max_score = 0;
   }
 
   // Getter
@@ -29,6 +30,8 @@ public class Scorer {
     fill(0);
     stroke(0);
     int s = score;
+    if (s < 0)
+      return;
     int[] digits = new int[0];
     while (s >= 0) {
       digits = append(digits, s % 10);

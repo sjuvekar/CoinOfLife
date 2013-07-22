@@ -23,7 +23,7 @@ public class Player {
     // Declare arrays
     alive = new boolean[max_grid_x+2][max_grid_y+2];
     ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
-    gem_positions = new boolean[max_grid_x+2][max_grid_y+2];
+    gem_positions = new int[max_grid_x+2][max_grid_y+2];
     
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
@@ -195,14 +195,14 @@ public class Player {
   public void play() {
     if (state != INIT && state != PLAYING) return;
     
-    if (play_button.mouseClickedInside()) {
+    if (play_button.mouseReleased()) {
       state = SIMULATING;
     }
-    else if (undo_button.mouseClickedInside()) {
+    else if (undo_button.mouseReleased()) {
       state = PLAYING;
       undo();
     }
-    else if (reset_button.mouseClickedInside()) {
+    else if (reset_button.mouseReleased()) {
       state = PLAYING;
       reset();
     }
@@ -214,9 +214,10 @@ public class Player {
   
   // Advance scorer after timeout
   public void advanceScorer() {
+    int maxScore = scorer.getMaxScore();
     scorer.incrementScore();
-    if (scorer.getScore() == scorer.getMaxScore()) 
-      state = FINISHED;
+    if (scorer.getScore() == maxScore) 
+      state = FINISHED;  
   }
   
   

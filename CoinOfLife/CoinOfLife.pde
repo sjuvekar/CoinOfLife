@@ -1,9 +1,12 @@
 /* @pjs preload="coin.png, button.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
+/* @pjs font="Clock.ttf" */ 
 Player player;
 Drawer drawer;
 
 PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_GEM_IMAGE;
 PImage[] G_DIGIT_IMAGES;
+
+PFont G_CLOCK_FONT;
 
 void setup() {
   // Setting up background and colors
@@ -18,7 +21,10 @@ void setup() {
   for (int i = 0; i < 10; i++)
     G_DIGIT_IMAGES[i] = loadImage(i + ".png");
   G_GEM_IMAGE = loadImage("gem.png");
-      
+
+  // Preload font
+  G_CLOCK_FONT = createFont("Clock.ttf", 48);
+  
   int a_width = arena_width();
   int c_width = cell_width();
   int a_height = arena_height();

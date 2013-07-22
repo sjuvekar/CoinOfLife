@@ -9,7 +9,7 @@ public class CoinButton {
     this.txt = txt;
     this.button = new Button(txt, x, y, wd, ht);
     this.button.setActiveImage(G_BUTTON_IMAGE);
-    this.button.setInactiveImage(G_BUTTON_IMAGE);
+    this.button.setInactiveImage(G_ACTIVE_BUTTON_IMAGE);
   }
 
   // drawit

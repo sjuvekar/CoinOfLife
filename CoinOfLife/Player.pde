@@ -228,13 +228,21 @@ public class Player {
   }
   
   // Advance scorer after timeout
-  public void advanceScorer() {
-    int maxScore = coin_scorer.getMaxScore();
-    coin_scorer.incrementScore();
-    if (coin_scorer.getScore() == maxScore) 
-      state = FINISHED;  
+  public void advanceScorers() {
+    if (advanceScorer(coin_scorer))
+      if (advanceScorer(gem_scorer))
+        if (advanceScorer(diamond_scorer))
+          if (advanceScorer(rock_scorer))  
+            state = FINISHED;  
   }
   
+  public boolean advanceScorer(Scorer my_scorer) {
+    my_scorer.incrementScore();
+    if (my_scorer.getScore() == my_scorer.getMaxScore())
+      return true;
+    else 
+      return false;
+  }
   
   public void mousePressed() {
     play_button.mousePressed();

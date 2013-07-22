@@ -44,7 +44,7 @@ void draw() {
   if (player.getState() == Player.SIMULATING) 
     player.simulate();
   if (player.getState() == Player.TIMEOUT) {
-    player.advanceScorer();
+    player.advanceScorers();
   }
   drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   if (player.getState() == Player.FINISHED) {

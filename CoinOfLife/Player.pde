@@ -192,7 +192,7 @@ public class Player {
   }
 
   // All interactions with mouse pressed
-  public void play() {
+  public void mouseReleased() {
     if (state != INIT && state != PLAYING) return;
     
     if (play_button.mouseReleased()) {
@@ -221,6 +221,11 @@ public class Player {
   }
   
   
+  public void mousePressed() {
+    play_button.mousePressed();
+    undo_button.mousePressed();
+    reset_button.mousePressed();
+  }
   // Private
   // Dimensions of grid
   private int max_grid_x, max_grid_y;

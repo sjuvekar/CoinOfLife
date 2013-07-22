@@ -8,8 +8,8 @@ public class CoinButton {
     this.ht = ht;
     this.txt = txt;
     this.button = new Button(txt, x, y, wd, ht);
-    this.button.setActiveImage(G_BUTTON_IMAGE);
-    this.button.setInactiveImage(G_ACTIVE_BUTTON_IMAGE);
+    this.button.setInactiveImage(G_BUTTON_IMAGE);
+    this.button.setActiveImage(G_ACTIVE_BUTTON_IMAGE);
   }
 
   // drawit
@@ -28,7 +28,7 @@ public class CoinButton {
   }
   
   public boolean mousePressed() {
-    return this.button.mouseReleased();
+    return this.button.mousePressed();
   }
   
   //private

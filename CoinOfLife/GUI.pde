@@ -177,8 +177,7 @@ class Button extends Widget
       noFill();
       rect(pos.x, pos.y, imgWidth,  extents.y);
       textAlign(CENTER, CENTER);
-      textSize(30);
-      //fill(212,175,55);
+      textSize(36);
       textFont(G_BUTTON_FONT);
       text(name, pos.x + 0.5*extents.x, pos.y + 0.5* extents.y);
       //noTint();

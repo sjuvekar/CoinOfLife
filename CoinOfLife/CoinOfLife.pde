@@ -49,7 +49,11 @@ void draw() {
   }
 }
 
+void mouseReleased() {
+  player.mouseReleased();
+}
+
 void mousePressed() {
-  player.play();
+  player.mousePressed();
 }
 

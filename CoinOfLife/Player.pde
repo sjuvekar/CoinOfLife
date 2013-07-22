@@ -45,9 +45,9 @@ public class Player {
     int reset_y = (int)(c_height * 7.5);
     int button_width = width - a_width - c_width;
     int button_height = c_width * 2;
-    play_button = new Button(button_x, play_y, button_width, button_height, "Play");
-    undo_button = new Button(button_x, undo_y, button_width, button_height, "Undo");
-    reset_button = new Button(button_x, reset_y, button_width, button_height, "Reset");
+    play_button = new CoinButton(button_x, play_y, button_width, button_height, "Play");
+    undo_button = new CoinButton(button_x, undo_y, button_width, button_height, "Undo");
+    reset_button = new CoinButton(button_x, reset_y, button_width, button_height, "Reset");
 
     // Create timer
     int timer_x = a_width;
@@ -82,13 +82,13 @@ public class Player {
   public int[][] getGemPositions() {
     return gem_positions;
   }
-  public Button get_play_button() { 
+  public CoinButton get_play_button() { 
     return play_button;
   }
-  public Button get_undo_button() { 
+  public CoinButton get_undo_button() { 
     return undo_button;
   }
-  public Button get_reset_button() { 
+  public CoinButton get_reset_button() { 
     return reset_button;
   }
   public Timer getTimer() { 
@@ -240,7 +240,7 @@ public class Player {
   private int state;
  
   // Buttons
-  private Button play_button, undo_button, reset_button;
+  private CoinButton play_button, undo_button, reset_button;
 
   // Timer to check if game has ended
   private Timer timer;

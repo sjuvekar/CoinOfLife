@@ -31,6 +31,8 @@ public class Scorer {
     fill(0);
     stroke(0);
     int s = score;
+    if (s < 0)
+      return;
     int[] digits = new int[0];
     while (s >= 0) {
       digits = append(digits, s % 10);

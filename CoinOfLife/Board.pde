@@ -130,7 +130,7 @@ public class Board {
   
   
   // Simulate the board
-  public int simulate() {
+  public int[] simulate() {
     int coin_increment = 0;
     int gem_increment = 0;
     int diamond_increment = 0;
@@ -167,7 +167,12 @@ public class Board {
     arrayCopy(temp_alive, alive);
     
     // Create array
-    return coin_increment;
+    int[] ret = new int[4];
+    ret[0] = coin_increment;
+    ret[1] = gem_increment;
+    ret[2] = diamond_increment;
+    ret[3] = rock_increment;
+    return ret;
   }
   
    

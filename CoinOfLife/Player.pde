@@ -142,8 +142,11 @@ public class Player {
     if (state != SIMULATING) return;
     
     // Simulate the board
-    int score_increment = board.simulate();
-    coin_scorer.incrementMaxScore(score_increment);
+    int[] score_increments = board.simulate();
+    coin_scorer.incrementMaxScore(score_increments[0]);
+    gem_scorer.incrementMaxScore(score_increments[1]);
+    diamond_scorer.incrementMaxScore(score_increments[2]);
+    rock_scorer.incrementMaxScore(score_increments[3]);
     
     // Advance time for timer, check if it has timed out and set the state
     if (timer.isTimeout()) 
@@ -175,19 +178,27 @@ public class Player {
   
   // Advance scorer after timeout
   public void advanceScorers() {
-    if (advanceScorer(coin_scorer))
-      if (advanceScorer(gem_scorer))
-        if (advanceScorer(diamond_scorer))
-          if (advanceScorer(rock_scorer))  
-            state = FINISHED;  
-  }
-  
-  public boolean advanceScorer(Scorer my_scorer) {
-    my_scorer.incrementScore(1);
-    if (my_scorer.getScore() == my_scorer.getMaxScore())
-      return true;
-    else 
-      return false;
+    if (coin_scorer.reachedMaxScore()) {
+      if (gem_scorer.reachedMaxScore()) {
+	if (diamond_scorer.reachedMaxScore()) {
+	  if (rock_scorer.reachedMaxScore()) {
+	    state = FINISHED;
+	  }
+	  else {
+	    rock_scorer.incrementScore(1);
+	  }
+	}
+	else {
+	  diamond_scorer.incrementScore(1);
+	}
+      }
+      else {
+	gem_scorer.incrementScore(1);
+      }
+    }
+    else {
+      coin_scorer.incrementScore(1);
+    }
   }
   
   public void mousePressed() {

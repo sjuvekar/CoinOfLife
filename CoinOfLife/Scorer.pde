@@ -20,13 +20,17 @@ public class Scorer {
   }
   
   public void incrementScore(int i) {
-    score += i;
+    this.score = this.score + i;
   }
 
   public void incrementMaxScore(int i) {
-    max_score += i;
+    this.max_score = this.max_score + i;
   }
-  
+ 
+  public boolean reachedMaxScore() {
+    return (this.score >= this.max_score);
+  }
+
   public void drawit(int c_width, int c_height) {
     fill(0);
     stroke(0);

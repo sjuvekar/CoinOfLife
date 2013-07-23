@@ -19,12 +19,12 @@ public class Scorer {
     return max_score;
   }
   
-  public void incrementScore() {
-    score++;
+  public void incrementScore(int i) {
+    score += i;
   }
 
-  public void incrementMaxScore() {
-    max_score++;
+  public void incrementMaxScore(int i) {
+    max_score += i;
   }
   
   public void drawit(int c_width, int c_height) {
@@ -43,7 +43,7 @@ public class Scorer {
     
     image(this.m_image, x, y, c_width * 1.5, c_height * 1.5);
     for (int j = digits.length - 1; j >= 0; j--) {
-       image(G_DIGIT_IMAGES[digits[j]], x + (digits.length - j + 1) * wd, y, wd, ht);
+       image(G_DIGIT_IMAGES[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
     }
   }
 

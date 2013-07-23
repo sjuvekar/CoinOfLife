@@ -20,22 +20,10 @@ public class Player {
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
     this.level = 1;
-    
-    // Declare arrays
-    alive = new boolean[max_grid_x+2][max_grid_y+2];
-    ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
-    gem_positions = new int[max_grid_x+2][max_grid_y+2];
-    
-    for (int i = 0; i < max_grid_x; i++) {
-      for (int j = 0; j < max_grid_y; j++) {
-        alive[i][j] = false;
-        ever_alive[i][j] = false;
-        gem_positions[i][j] = 0;
-      }
-    }
-    last_X = new ArrayList();
-    last_Y = new ArrayList();
 
+    // Create Board
+    board = new Board(level, max_grid_x, max_grid_y);
+    
     // Create initial state
     state = INIT;
 
@@ -81,13 +69,19 @@ public class Player {
     return c_height;
   }
   public boolean[][] getAlive() { 
-    return alive;
+    return board.getAlive();
   }
   public boolean[][] getEverAlive() { 
-    return ever_alive;
+    return board.getEverAlive();
   }
-  public int[][] getGemPositions() {
-    return gem_positions;
+  public boolean[][] getGemPositions() {
+    return board.getGemPositions();
+  }
+  public boolean[][] getDiamondPositions() {
+    return board.getDiamondPositions();
+  }
+  public boolean[][] getRockPositions() {
+    return board.getRockPositions();
   }
   public CoinButton get_play_button() { 
     return play_button;
@@ -116,90 +110,38 @@ public class Player {
   public int getState() {
     return state;
   }
+  
+  //Setters
+  public void setState(int st) {
+    this.state = st;
+  }
+  
   // Place a coin on cell
   public void placeCoin() {
     if (state != PLAYING) return;
-    int c_width = cell_width();
-    int c_height = cell_height();
-    int i = (int) (mouseX /  c_width);
-    int j = (int) (mouseY / c_height);
-    alive[i][j] = true;
-    ever_alive[i][j] = true;
-    last_X.add(0, i);
-    last_Y.add(0, j);
+    board.placeCoin();
   }
 
   // Responds to undo press by user
   public void undo() {
     if (state != PLAYING) return;
-    int lx = last_X.get(0);
-    int ly = last_Y.get(0);
-    alive[lx][ly] = false;
-    ever_alive[lx][ly] = false;
-    last_X.remove(0);
-    last_Y.remove(0);
+    board.undo();
   }
 
   // Responds to reset pressed by user
   public void reset() {
     if (state != PLAYING) return;
-    for (int i = 0; i < max_grid_x; i++) {
-      for (int j = 0; j < max_grid_y; j++) {
-        alive[i][j] = false;
-        ever_alive[i][j] = false;
-      }
-    }
-    while (!last_X.isEmpty ()) {
-      last_X.remove(0);
-      last_Y.remove(0);
-    }
+    board.reset();
   }
 
-  // Check if a cell is alive
-  private boolean isAlive(int c_i, int c_j) {
-    int alive_neighbors = 0;
-    
-    for (int i = -1; i <= 1; i++) {
-      for (int j = -1; j <= 1; j++) {
-        if (i == 0 && j == 0) {
-          continue;
-        }
-        int new_ci = (c_i + i) % max_grid_x;
-        int new_cj = (c_j + j) % max_grid_y;
-        // Adjust the indices if out of arena
-        if (new_ci < 1) {
-          new_ci += max_grid_x;
-        }
-        if (new_cj < 1) {
-          new_cj += max_grid_y;
-        }
-
-        if (alive[new_ci][new_cj]) {
-          alive_neighbors++;
-        }
-      }
-    }
-    return ((alive[c_i][c_j] && alive_neighbors == 2) || alive_neighbors == 3);
-  }
-
-
+  // Simulate the board
   public void simulate() {
     if (state != SIMULATING) return;
-    boolean temp_alive[][] = new boolean[max_grid_x+2][max_grid_y+2];
-    for (int i = 1; i <= max_grid_x; i++) {
-      for (int j = 1; j <= max_grid_y; j++) {
-        if (isAlive(i, j)) {
-          temp_alive[i][j] = true;
-          if (!ever_alive[i][j]) {
-            ever_alive[i][j] = true;
-            coin_scorer.incrementMaxScore();
-          }
-        }
-        else
-          temp_alive[i][j] = false;
-      }
-    }  
-    arrayCopy(temp_alive, alive);
+    
+    // Simulate the board
+    int score_increment = board.simulate();
+    coin_scorer.incrementMaxScore(score_increment);
+    
     // Advance time for timer, check if it has timed out and set the state
     if (timer.isTimeout()) 
       state = TIMEOUT;
@@ -238,7 +180,7 @@ public class Player {
   }
   
   public boolean advanceScorer(Scorer my_scorer) {
-    my_scorer.incrementScore();
+    my_scorer.incrementScore(1);
     if (my_scorer.getScore() == my_scorer.getMaxScore())
       return true;
     else 
@@ -258,17 +200,15 @@ public class Player {
   // Dimensions of cell
   private int c_width, c_height;
 
-  // Arrays to check if a cell is dead/alive
-  private boolean alive[][];
-  private boolean ever_alive[][];
-  private ArrayList<Integer> last_X, last_Y;
-
-  // Gems and Rocks on the grid
-  private int gem_positions[][]; 
+  // Level
+  private int level;
   
   // Maintain the state
   private int state;
  
+  // Board
+  private Board board;
+  
   // Buttons
   private CoinButton play_button, undo_button, reset_button;
 
@@ -278,7 +218,5 @@ public class Player {
   // Scorer
   private Scorer coin_scorer, gem_scorer, diamond_scorer, rock_scorer;
   
-  // Level
-  private int level;
 }
 

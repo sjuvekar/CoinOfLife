@@ -24,6 +24,7 @@ public class Drawer {
     boolean[][] gem_positions = player.getGemPositions();
     boolean[][] diamond_positions = player.getDiamondPositions();
     boolean[][] rock_positions = player.getRockPositions();
+    boolean[][] hit_positions = player.getHitPositions();
     
     for (int i = 0; i < alive.length; i++) {
       for (int j = 0; j < alive[i].length; j++) {
@@ -48,6 +49,10 @@ public class Drawer {
         if (rock_positions[i][j]) {
           imageMode(CORNER);
           image(G_ROCK_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.2), (int)(c_height * 1.2));
+        }
+        if (hit_positions[i][j]) {
+          imageMode(CENTER);
+          image(G_HIT_IMAGE, (int)((i+0.5) * c_width), (int)((j+0.5) * c_height), (int)(c_width * 1.8), (int)(c_height * 1.8));
         }
       }
     }

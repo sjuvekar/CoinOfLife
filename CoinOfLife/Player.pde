@@ -83,6 +83,9 @@ public class Player {
   public boolean[][] getRockPositions() {
     return board.getRockPositions();
   }
+  public boolean[][] getHitPositions() {
+    return board.getHitPositions();
+  }
   public CoinButton get_play_button() { 
     return play_button;
   }

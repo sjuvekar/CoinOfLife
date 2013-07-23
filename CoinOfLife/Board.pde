@@ -4,17 +4,18 @@ public class Board {
     this.level = level;
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
-    init();
-  }
-  
-  public void init() {
     // Declare arrays
     alive = new boolean[max_grid_x+2][max_grid_y+2];
     ever_alive = new boolean[max_grid_x+2][max_grid_y+2];
     gem_positions = new boolean[max_grid_x+2][max_grid_y+2];
     diamond_positions = new boolean[max_grid_x+2][max_grid_y+2];
     rock_positions = new boolean[max_grid_x+2][max_grid_y+2];
+    hit_positions = new boolean[max_grid_x+2][max_grid_y+2];
     
+    init();
+  }
+  
+  public void init() {
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;
@@ -22,11 +23,10 @@ public class Board {
         gem_positions[i][j] = false;
         diamond_positions[i][j] = false;
         rock_positions[i][j] = false;
+        hit_positions[i][j] = false;
       }
     }
     
-    // Randomly set gem/diamond/rock
-    Random generator = new Random( 19580427 );
     for (int i = 1; i < max_grid_x-1; i++) {
       for (int j = 1; j < max_grid_y-1; j++) {
         double r = random(0., 0.5);
@@ -58,6 +58,9 @@ public class Board {
   }
   public boolean[][] getRockPositions() {
     return rock_positions;
+  }
+  public boolean[][] getHitPositions() {
+    return hit_positions;
   }
   
   public void placeCoin() {
@@ -134,13 +137,21 @@ public class Board {
       for (int j = 1; j <= max_grid_y; j++) {
         if (isAlive(i, j)) {
           temp_alive[i][j] = true;
+          if (gem_positions[i][j] || diamond_positions[i][j] || rock_positions[i][j]) {
+            hit_positions[i][j] = true;
+          }
+          gem_positions[i][j] = false;
+          diamond_positions[i][j] = false;
+          rock_positions[i][j] = false;
+          
           if (!ever_alive[i][j]) {
             ever_alive[i][j] = true;
             score_increment++;
           }
         }
-        else
+        else {
           temp_alive[i][j] = false;
+        }
       }
     }  
     arrayCopy(temp_alive, alive);
@@ -163,5 +174,5 @@ public class Board {
   private boolean gem_positions[][]; 
   private boolean diamond_positions[][];
   private boolean rock_positions[][];
-  
+ private boolean hit_positions[][]; 
 }

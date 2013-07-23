@@ -175,7 +175,7 @@ class Button extends Widget
       //tint(imageTint);
       image(currentImage, pos.x, pos.y, imgWidth, extents.y);
       textAlign(CENTER, CENTER);
-      textFont(G_BUTTON_FONT);
+      textFont(G_BUTTON_FONT, 24);
       text(name, pos.x + 0.5*extents.x, pos.y + 0.5* extents.y);
       //noTint();
       popStyle();

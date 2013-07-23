@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Board {
   
   public Board(int level, int max_grid_x, int max_grid_y) {
@@ -25,6 +27,19 @@ public class Board {
       }
     }
     
+    // Randomly set gem/diamond/rock
+    Random generator = new Random( 19580427 );
+    for (int i = 1; i < max_grid_x-1; i++) {
+      for (int j = 1; j < max_grid_y-1; j++) {
+        double r = generator.nextDouble();
+        if (r < 0.002)
+          gem_positions[i][j] = true;
+        else if (r < 0.00208)
+          diamond_positions[i][j] = true;
+        else if (r < 0.00214)
+          rock_positions[i][j] = true;
+      }
+    }
     // Randomly set gems
     last_X = new ArrayList();
     last_Y = new ArrayList();

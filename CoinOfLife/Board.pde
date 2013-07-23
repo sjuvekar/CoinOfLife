@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Board {
   
   public Board(int level, int max_grid_x, int max_grid_y) {
@@ -31,7 +29,7 @@ public class Board {
     Random generator = new Random( 19580427 );
     for (int i = 1; i < max_grid_x-1; i++) {
       for (int j = 1; j < max_grid_y-1; j++) {
-        double r = generator.nextDouble();
+        double r = random(0., 0.5);
         if (r < 0.002)
           gem_positions[i][j] = true;
         else if (r < 0.00208)
@@ -43,27 +41,6 @@ public class Board {
     // Randomly set gems
     last_X = new ArrayList();
     last_Y = new ArrayList();
-  }
-  
-  // Simulate the board
-  public int simulate() {
-    int score_increment = 0;
-    boolean temp_alive[][] = new boolean[max_grid_x+2][max_grid_y+2]; 
-    for (int i = 1; i <= max_grid_x; i++) {
-      for (int j = 1; j <= max_grid_y; j++) {
-        if (isAlive(i, j)) {
-          temp_alive[i][j] = true;
-          if (!ever_alive[i][j]) {
-            ever_alive[i][j] = true;
-            score_increment++;
-          }
-        }
-        else
-          temp_alive[i][j] = false;
-      }
-    }  
-    arrayCopy(temp_alive, alive);
-    return score_increment;
   }
   
   // Getters
@@ -88,6 +65,8 @@ public class Board {
     int c_height = cell_height();
     int i = (int) (mouseX /  c_width);
     int j = (int) (mouseY / c_height);
+    if (gem_positions[i][j] || diamond_positions[i][j] || rock_positions[i][j])
+      return;
     alive[i][j] = true;
     ever_alive[i][j] = true;
     last_X.add(0, i);
@@ -146,6 +125,29 @@ public class Board {
     return ((alive[c_i][c_j] && alive_neighbors == 2) || alive_neighbors == 3);
   }
   
+  
+  // Simulate the board
+  public int simulate() {
+    int score_increment = 0;
+    boolean temp_alive[][] = new boolean[max_grid_x+2][max_grid_y+2]; 
+    for (int i = 1; i <= max_grid_x; i++) {
+      for (int j = 1; j <= max_grid_y; j++) {
+        if (isAlive(i, j)) {
+          temp_alive[i][j] = true;
+          if (!ever_alive[i][j]) {
+            ever_alive[i][j] = true;
+            score_increment++;
+          }
+        }
+        else
+          temp_alive[i][j] = false;
+      }
+    }  
+    arrayCopy(temp_alive, alive);
+    return score_increment;
+  }
+  
+   
   // Level
   private int level;
   

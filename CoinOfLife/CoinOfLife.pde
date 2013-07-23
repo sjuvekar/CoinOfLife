@@ -1,9 +1,9 @@
-/* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, hit.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */    
+/* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
 /* @pjs font="data/Clock.ttf, data/Button.ttf"; crisp=true; */ 
 Player player;
 Drawer drawer;
 
-PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE;
+PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE;
 PImage[] G_DIGIT_IMAGES;
 
 PFont G_CLOCK_FONT, G_BUTTON_FONT;
@@ -25,6 +25,7 @@ void setup() {
   G_GEM_IMAGE = loadImage("gem.png");
   G_DIAMOND_IMAGE = loadImage("diamond.png");
   G_ROCK_IMAGE = loadImage("rock.png");
+  G_HIT_IMAGE = loadImage("hit.png");
   
   // Preload font
   G_CLOCK_FONT = createFont("Clock.ttf", 48);

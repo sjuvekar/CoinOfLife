@@ -19,6 +19,7 @@ public class Player {
     this.c_height = c_height;
     this.max_grid_x = max_grid_x;
     this.max_grid_y = max_grid_y;
+    this.level = 1;
     
     // Declare arrays
     alive = new boolean[max_grid_x+2][max_grid_y+2];
@@ -276,5 +277,8 @@ public class Player {
      
   // Scorer
   private Scorer coin_scorer, gem_scorer, diamond_scorer, rock_scorer;
+  
+  // Level
+  private int level;
 }
 

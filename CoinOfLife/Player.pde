@@ -9,7 +9,7 @@ public class Player {
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
 
-  final static int MAX_TIMER = 100;
+  final static int MAX_TIMER = 150;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {

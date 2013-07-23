@@ -131,7 +131,11 @@ public class Board {
   
   // Simulate the board
   public int simulate() {
-    int score_increment = 0;
+    int coin_increment = 0;
+    int gem_increment = 0;
+    int diamond_increment = 0;
+    int rock_increment = 0;
+    
     boolean temp_alive[][] = new boolean[max_grid_x+2][max_grid_y+2]; 
     for (int i = 1; i <= max_grid_x; i++) {
       for (int j = 1; j <= max_grid_y; j++) {
@@ -139,6 +143,12 @@ public class Board {
           temp_alive[i][j] = true;
           if (gem_positions[i][j] || diamond_positions[i][j] || rock_positions[i][j]) {
             hit_positions[i][j] = true;
+            if (gem_positions[i][j])
+              gem_increment++;
+            else if (diamond_positions[i][j])
+              diamond_increment++;
+            else if (rock_positions[i][j])
+              rock_increment++;
           }
           gem_positions[i][j] = false;
           diamond_positions[i][j] = false;
@@ -146,7 +156,7 @@ public class Board {
           
           if (!ever_alive[i][j]) {
             ever_alive[i][j] = true;
-            score_increment++;
+            coin_increment++;
           }
         }
         else {
@@ -155,7 +165,9 @@ public class Board {
       }
     }  
     arrayCopy(temp_alive, alive);
-    return score_increment;
+    
+    // Create array
+    return coin_increment;
   }
   
    

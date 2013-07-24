@@ -14,7 +14,12 @@ public class Menu {
   public void display() {
     imageMode(CENTER);
     image(G_LOGO_IMAGE, width/2, height/2 - 200, 250, 250);
+    pushStyle();
+    textSize(60);
+    text("Coin Of Life", width/2 - 150, height/2);
+    popStyle();
     start_button.drawit();
+    
   }
   
   // Button

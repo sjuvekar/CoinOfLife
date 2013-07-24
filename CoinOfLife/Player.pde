@@ -166,6 +166,7 @@ public class Player {
   public void mouseReleased() {
     if (state == MENU && menu.getStartButton().mouseReleased()) {
       state = INIT;
+      return;
     }
     //if (state != INIT && state != PLAYING) return;
     
@@ -203,6 +204,7 @@ public class Player {
     play_button.mousePressed();
     undo_button.mousePressed();
     reset_button.mousePressed();
+    menu.getStartButton().mousePressed();
   }
   // Private
   // Dimensions of grid

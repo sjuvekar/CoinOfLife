@@ -17,6 +17,9 @@ public class Menu {
     pushStyle();
     textSize(60);
     text("Coin Of Life", width/2 - 150, height/2);
+    textSize(30);
+    fill(183, 154, 0);
+    text("The most addictive coin game ever!", width/2 - 225, height/2 + 50);
     popStyle();
     start_button.drawit();
     

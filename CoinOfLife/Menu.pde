@@ -20,6 +20,9 @@ public class Menu {
     textSize(30);
     fill(183, 154, 0);
     text("The most addictive coin game ever!", width/2 - 225, height/2 + 50);
+    fill(255);
+    textSize(20);
+    text("Place coins on board, watch them evolve, earn gems, diamonds and rocks!", width/2 - 300, height/2 + 100);
     popStyle();
     start_button.drawit();
     

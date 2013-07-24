@@ -63,11 +63,11 @@ void draw() {
     G_PLAY_PLAYER.play();
   }
   if (player.getState() == Player.TIMEOUT) {
+    G_PLAY_PLAYER.stop();
     player.advanceScorers();
   }
   drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   if (player.getState() == Player.FINISHED) {
-    G_COIN_PLAYER.cue(0);
     G_COIN_PLAYER.play();
     noLoop();
   }

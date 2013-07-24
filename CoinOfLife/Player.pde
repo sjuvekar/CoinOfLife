@@ -9,7 +9,7 @@ public class Player {
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
 
-  final static int MAX_TIMER = 150;
+  final static int MAX_TIMER = 125;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
@@ -178,27 +178,15 @@ public class Player {
   
   // Advance scorer after timeout
   public void advanceScorers() {
-    if (coin_scorer.reachedMaxScore()) {
-      if (gem_scorer.reachedMaxScore()) {
-	if (diamond_scorer.reachedMaxScore()) {
-	  if (rock_scorer.reachedMaxScore()) {
-	    state = FINISHED;
-	  }
-	  else {
-	    rock_scorer.incrementScore(1);
-	  }
-	}
-	else {
-	  diamond_scorer.incrementScore(1);
-	}
-      }
-      else {
-	gem_scorer.incrementScore(1);
-      }
-    }
-    else {
+    while (!coin_scorer.reachedMaxScore()) 
       coin_scorer.incrementScore(1);
-    }
+    while (!gem_scorer.reachedMaxScore()) 
+      gem_scorer.incrementScore(1);
+    while (!diamond_scorer.reachedMaxScore()) 
+      diamond_scorer.incrementScore(1);
+    while (!rock_scorer.reachedMaxScore()) 
+      rock_scorer.incrementScore(1);
+    state = FINISHED;
   }
   
   public void mousePressed() {

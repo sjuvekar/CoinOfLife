@@ -16,6 +16,9 @@ Maxim G_PLAY_MAXIM;
 // AudioPlayers
 AudioPlayer G_PLAY_PLAYER, G_COIN_PLAYER;
 
+// Timer for playing coin sound
+int G_TIMER;
+
 void setup() {
   // Setting up background and colors
   background(0);
@@ -71,11 +74,18 @@ void draw() {
     if (player.getState() == Player.TIMEOUT) {
       G_PLAY_PLAYER.stop();
       player.advanceScorers();
+      G_TIMER = 0;
     }
     drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
     if (player.getState() == Player.FINISHED) {
-      G_COIN_PLAYER.play();
-      noLoop();
+      if (G_TIMER >= 10) {
+        G_COIN_PLAYER.play();
+        G_TIMER = 0;
+        noLoop();
+      }
+      else {
+        G_TIMER = G_TIMER + 1;
+      }
     }
   }
 }

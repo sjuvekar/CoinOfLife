@@ -1,5 +1,5 @@
 /* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
-/* @pjs preload="play.wav"; */
+/* @pjs preload="play.wav, coin.wav"; */
 /* @pjs font="data/Clock.ttf, data/Button.ttf"; crisp=true; */ 
 Player player;
 Drawer drawer;
@@ -14,7 +14,7 @@ PFont G_CLOCK_FONT, G_BUTTON_FONT;
 Maxim G_PLAY_MAXIM;
 
 // AudioPlayers
-AudioPlayer G_PLAY_PLAYER;
+AudioPlayer G_PLAY_PLAYER, G_COIN_PLAYER;
 
 void setup() {
   // Setting up background and colors
@@ -43,7 +43,9 @@ void setup() {
   G_PLAY_MAXIM = new Maxim(this);
   
   G_PLAY_PLAYER = G_PLAY_MAXIM.loadFile("play.wav");
+  G_COIN_PLAYER = G_PLAY_MAXIM.loadFile("coin.wav");
   G_PLAY_PLAYER.setLooping(false);
+  G_COIN_PLAYER.setLooping(false);
   
   int a_width = arena_width();
   int c_width = cell_width();
@@ -65,6 +67,8 @@ void draw() {
   }
   drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   if (player.getState() == Player.FINISHED) {
+    G_COIN_PLAYER.cue(0);
+    G_COIN_PLAYER.play();
     noLoop();
   }
 }

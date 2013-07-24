@@ -8,6 +8,7 @@ public class Player {
   final static int SIMULATING = 2;
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
+  final static int MENU = -1;
 
   final static int MAX_TIMER = 125;
 
@@ -25,7 +26,7 @@ public class Player {
     board = new Board(level, max_grid_x, max_grid_y);
     
     // Create initial state
-    state = INIT;
+    state = MENU;
 
     // Create buttons  
     int button_x = a_width;
@@ -53,6 +54,9 @@ public class Player {
     gem_scorer = new Scorer(scorer_x, gem_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_GEM_IMAGE);
     diamond_scorer = new Scorer(scorer_x, diamond_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_DIAMOND_IMAGE);
     rock_scorer = new Scorer(scorer_x, rock_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_ROCK_IMAGE);
+    
+    // Create Menu screen
+    this.menu = new Menu(a_width, c_width, a_height, c_height);
   }
 
   // Getters
@@ -110,6 +114,9 @@ public class Player {
   public Scorer getRockScorer() { 
     return rock_scorer;
   }
+  public Menu getMenu() {
+    return menu;
+  }
   public int getState() {
     return state;
   }
@@ -157,7 +164,10 @@ public class Player {
 
   // All interactions with mouse pressed
   public void mouseReleased() {
-    if (state != INIT && state != PLAYING) return;
+    if (state == MENU && menu.getStartButton().mouseReleased()) {
+      state = INIT;
+    }
+    //if (state != INIT && state != PLAYING) return;
     
     if (play_button.mouseReleased()) {
       state = SIMULATING;
@@ -219,6 +229,8 @@ public class Player {
      
   // Scorer
   private Scorer coin_scorer, gem_scorer, diamond_scorer, rock_scorer;
-  
+
+  // Menu
+  private Menu menu;  
 }
 

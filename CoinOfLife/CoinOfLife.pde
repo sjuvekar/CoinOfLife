@@ -58,18 +58,23 @@ void setup() {
 }
 
 void draw() {
-  if (player.getState() == Player.SIMULATING) { 
-    player.simulate();
-    G_PLAY_PLAYER.play();
+  if (player.getState() == Player.MENU) {
+    player.getMenu().display();
   }
-  if (player.getState() == Player.TIMEOUT) {
-    G_PLAY_PLAYER.stop();
-    player.advanceScorers();
-  }
-  drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
-  if (player.getState() == Player.FINISHED) {
-    G_COIN_PLAYER.play();
-    noLoop();
+  else {
+    if (player.getState() == Player.SIMULATING) { 
+      player.simulate();
+      G_PLAY_PLAYER.play();
+    }
+    if (player.getState() == Player.TIMEOUT) {
+      G_PLAY_PLAYER.stop();
+      player.advanceScorers();
+    }
+    drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
+    if (player.getState() == Player.FINISHED) {
+      G_COIN_PLAYER.play();
+      noLoop();
+    }
   }
 }
 

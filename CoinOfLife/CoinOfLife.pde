@@ -66,6 +66,9 @@ void draw() {
   if (player.getState() == Player.MENU) {
     player.getMenu().display();
   }
+  else if (player.getState() == Player.NEXTLEVEL) {
+    player.getGlobalMenu().display();
+  }
   else {
     if (player.getState() == Player.SIMULATING) { 
       player.simulate();
@@ -76,7 +79,6 @@ void draw() {
       player.advanceScorers();
       G_TIMER = 0;
     }
-    drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
     if (player.getState() == Player.FINISHED) {
       if (G_TIMER >= 10) {
         G_COIN_PLAYER.play();
@@ -87,6 +89,7 @@ void draw() {
         G_TIMER = G_TIMER + 1;
       }
     }
+    drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }
 }
 

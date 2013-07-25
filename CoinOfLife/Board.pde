@@ -12,10 +12,10 @@ public class Board {
     rock_positions = new boolean[max_grid_x+2][max_grid_y+2];
     hit_positions = new boolean[max_grid_x+2][max_grid_y+2];
     
-    init();
+    init(this.level, this.max_grid_x, this.max_grid_y);
   }
   
-  public void init() {
+  public void init(int level, int max_grid_x, int max_grid_y) {
     for (int i = 0; i < max_grid_x; i++) {
       for (int j = 0; j < max_grid_y; j++) {
         alive[i][j] = false;

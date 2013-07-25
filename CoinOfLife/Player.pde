@@ -8,7 +8,9 @@ public class Player {
   final static int SIMULATING = 2;
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
+
   final static int MENU = -1;
+  final static int NEXTLEVEL = -2;
 
   final static int MAX_TIMER = 160;
 
@@ -57,6 +59,9 @@ public class Player {
     
     // Create Menu screen
     this.menu = new Menu(a_width, c_width, a_height, c_height);
+    
+    // Create the global menu screen
+    this.global_menu = new GlobalMenu(a_width, c_width, a_height, c_height);
   }
 
   // Getters
@@ -117,6 +122,9 @@ public class Player {
   public Menu getMenu() {
     return menu;
   }
+  public GlobalMenu getGlobalMenu() {
+    return global_menu;
+  }
   public int getState() {
     return state;
   }
@@ -168,6 +176,11 @@ public class Player {
       state = INIT;
       return;
     }
+    
+    if (state == NEXTLEVEL && global_menu.getContinueButton().mouseReleased()) {
+      state = INIT;
+      return;
+    }
     //if (state != INIT && state != PLAYING) return;
     
     if (play_button.mouseReleased()) {
@@ -197,6 +210,18 @@ public class Player {
       diamond_scorer.incrementScore(1);
     while (!rock_scorer.reachedMaxScore()) 
       rock_scorer.incrementScore(1);
+      
+    // Set globalMenu
+    global_menu.setCoins(coin_scorer.getMaxScore());
+    global_menu.setGems(gem_scorer.getMaxScore());
+    global_menu.setDiamonds(diamond_scorer.getMaxScore());
+    global_menu.setRocks(rock_scorer.getMaxScore());
+    
+    // Increment the level
+    //this.level = this.level + 1;
+    //board.init(this.level, this.max_grid_x, this.max_grid_y);
+    
+    // Set the state
     state = FINISHED;
   }
   
@@ -205,6 +230,7 @@ public class Player {
     undo_button.mousePressed();
     reset_button.mousePressed();
     menu.getStartButton().mousePressed();
+    global_menu.getContinueButton().mousePressed();
   }
   // Private
   // Dimensions of grid
@@ -233,6 +259,10 @@ public class Player {
   private Scorer coin_scorer, gem_scorer, diamond_scorer, rock_scorer;
 
   // Menu
-  private Menu menu;  
+  private Menu menu;
+
+  // global menu to display between levels
+  private GlobalMenu global_menu;
+  
 }
 

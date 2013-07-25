@@ -5,11 +5,15 @@ public class Scorer {
     this.y = y;
     this.wd = wd;
     this.ht = ht;
-    this.score = -1;
-    this.max_score = 0;
+    init();
     this.m_image = img;
   }
 
+  public void init() {
+    this.score = -1;
+    this.max_score = 0;
+  }
+  
   // Getter
   public int getScore() { 
     return score;

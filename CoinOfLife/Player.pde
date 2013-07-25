@@ -62,8 +62,19 @@ public class Player {
     
     // Create the global menu screen
     this.global_menu = new GlobalMenu(a_width, c_width, a_height, c_height);
+    
+    init();
   }
 
+  // Init method to init things after next level pressed
+  public void init() {
+    board.init(this.level);
+    timer.init(MAX_TIMER);
+    coin_scorer.init();
+    gem_scorer.init();
+    diamond_scorer.init();
+    rock_scorer.init();  
+  }
   // Getters
   public int get_a_width() { 
     return a_width;
@@ -182,7 +193,7 @@ public class Player {
       state = INIT;
       // Increment the level
       this.level = this.level + 1;
-      board.init(this.level, this.max_grid_x, this.max_grid_y);
+      init();
       return;
     }
     //if (state != INIT && state != PLAYING) return;

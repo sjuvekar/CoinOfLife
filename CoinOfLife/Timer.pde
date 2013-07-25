@@ -4,10 +4,14 @@ public class Timer {
   public Timer(int x, int y, int max_value) {
     this.x = x;
     this.y = y;
+    init(max_value);
+  }
+
+  public void init(int max_value) {
     this.max_value = max_value;
     this.curr_value = 0;
   }
-
+  
   //drawit
   public void drawit(int a_width, int c_width, int a_height, int c_height) {
     fill(197,179,88);

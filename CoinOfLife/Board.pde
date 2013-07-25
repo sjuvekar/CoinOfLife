@@ -15,12 +15,12 @@ public class Board {
     last_X = new ArrayList();
     last_Y = new ArrayList();
     
-    init(this.level, this.max_grid_x, this.max_grid_y);
+    init(this.level);
   }
   
-  public void init(int level, int max_grid_x, int max_grid_y) {
-    for (int i = 0; i < max_grid_x; i++) {
-      for (int j = 0; j < max_grid_y; j++) {
+  public void init(int level) {
+    for (int i = 0; i < this.max_grid_x; i++) {
+      for (int j = 0; j < this.max_grid_y; j++) {
         alive[i][j] = false;
         ever_alive[i][j] = false;
         gem_positions[i][j] = false;
@@ -31,8 +31,8 @@ public class Board {
     }
     
     // Randomly set gems
-    for (int i = 1; i < max_grid_x-1; i++) {
-      for (int j = 1; j < max_grid_y-1; j++) {
+    for (int i = 1; i < this.max_grid_x-1; i++) {
+      for (int j = 1; j < this.max_grid_y-1; j++) {
         double r = random(0., 0.5);
         if (r < 0.002)
           gem_positions[i][j] = true;

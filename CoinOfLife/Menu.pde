@@ -12,6 +12,8 @@ public class Menu {
   }
   
   public void display() {
+    background(0);
+    stroke(255);
     imageMode(CENTER);
     image(G_LOGO_IMAGE, width/2, height/2 - 200, 250, 250);
     pushStyle();

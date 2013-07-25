@@ -155,6 +155,7 @@ public class Player {
   // Simulate the board
   public void simulate() {
     if (state != SIMULATING) return;
+    G_PLAY_PLAYER.play();
     
     // Simulate the board
     int[] score_increments = board.simulate();
@@ -179,6 +180,9 @@ public class Player {
     
     if (state == NEXTLEVEL && global_menu.getContinueButton().mouseReleased()) {
       state = INIT;
+      // Increment the level
+      this.level = this.level + 1;
+      board.init(this.level, this.max_grid_x, this.max_grid_y);
       return;
     }
     //if (state != INIT && state != PLAYING) return;
@@ -202,6 +206,9 @@ public class Player {
   
   // Advance scorer after timeout
   public void advanceScorers() {
+    G_PLAY_PLAYER.stop();
+    G_TIMER = 0;
+    
     while (!coin_scorer.reachedMaxScore()) 
       coin_scorer.incrementScore(1);
     while (!gem_scorer.reachedMaxScore()) 
@@ -217,12 +224,22 @@ public class Player {
     global_menu.setDiamonds(diamond_scorer.getMaxScore());
     global_menu.setRocks(rock_scorer.getMaxScore());
     
-    // Increment the level
-    //this.level = this.level + 1;
-    //board.init(this.level, this.max_grid_x, this.max_grid_y);
-    
     // Set the state
     state = FINISHED;
+  }
+  
+  // Busy wait for 100 units after FINISHED state
+  public void waitForNextLevel() {
+    if (G_TIMER == 10) {
+      G_COIN_PLAYER.play();
+      G_TIMER = G_TIMER + 1;
+    }
+    else if (G_TIMER >= 100) {
+      state = NEXTLEVEL;
+    }  
+    else {
+      G_TIMER = G_TIMER + 1;
+    }
   }
   
   public void mousePressed() {
@@ -230,7 +247,7 @@ public class Player {
     undo_button.mousePressed();
     reset_button.mousePressed();
     menu.getStartButton().mousePressed();
-    global_menu.getContinueButton().mousePressed();
+    //global_menu.getContinueButton().mousePressed();
   }
   // Private
   // Dimensions of grid

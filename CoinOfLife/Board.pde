@@ -12,6 +12,9 @@ public class Board {
     rock_positions = new boolean[max_grid_x+2][max_grid_y+2];
     hit_positions = new boolean[max_grid_x+2][max_grid_y+2];
     
+    last_X = new ArrayList();
+    last_Y = new ArrayList();
+    
     init(this.level, this.max_grid_x, this.max_grid_y);
   }
   
@@ -27,6 +30,7 @@ public class Board {
       }
     }
     
+    // Randomly set gems
     for (int i = 1; i < max_grid_x-1; i++) {
       for (int j = 1; j < max_grid_y-1; j++) {
         double r = random(0., 0.5);
@@ -38,9 +42,9 @@ public class Board {
           rock_positions[i][j] = true;
       }
     }
-    // Randomly set gems
-    last_X = new ArrayList();
-    last_Y = new ArrayList();
+    
+    last_X.clear();
+    last_Y.clear();
   }
   
   // Getters

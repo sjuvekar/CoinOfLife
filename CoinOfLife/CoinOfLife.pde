@@ -72,22 +72,12 @@ void draw() {
   else {
     if (player.getState() == Player.SIMULATING) { 
       player.simulate();
-      G_PLAY_PLAYER.play();
     }
     if (player.getState() == Player.TIMEOUT) {
-      G_PLAY_PLAYER.stop();
       player.advanceScorers();
-      G_TIMER = 0;
     }
     if (player.getState() == Player.FINISHED) {
-      if (G_TIMER >= 10) {
-        G_COIN_PLAYER.play();
-        G_TIMER = 0;
-        noLoop();
-      }
-      else {
-        G_TIMER = G_TIMER + 1;
-      }
+      player.waitForNextLevel();
     }
     drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }

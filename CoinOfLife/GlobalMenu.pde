@@ -7,6 +7,8 @@ public class GlobalMenu {
   }
   
   public void display() {
+    background(0);
+    stroke(255);
     continue_button.drawit();
   }
   

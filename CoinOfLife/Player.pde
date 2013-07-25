@@ -136,6 +136,9 @@ public class Player {
   public GlobalMenu getGlobalMenu() {
     return global_menu;
   }
+  public int getLevel() {
+    return level;
+  }
   public int getState() {
     return state;
   }
@@ -228,10 +231,10 @@ public class Player {
       rock_scorer.incrementScore(1);
       
     // Set globalMenu
-    global_menu.setCoins(coin_scorer.getMaxScore());
-    global_menu.setGems(gem_scorer.getMaxScore());
-    global_menu.setDiamonds(diamond_scorer.getMaxScore());
-    global_menu.setRocks(rock_scorer.getMaxScore());
+    global_menu.getCoinScorer().incrementScore(coin_scorer.getMaxScore());
+    global_menu.getGemScorer().incrementScore(gem_scorer.getMaxScore());
+    global_menu.getDiamondScorer().incrementScore(diamond_scorer.getMaxScore());
+    global_menu.getRockScorer().incrementScore(rock_scorer.getMaxScore());
     
     // Set the state
     state = FINISHED;
@@ -243,7 +246,7 @@ public class Player {
       G_COIN_PLAYER.play();
       G_TIMER = G_TIMER + 1;
     }
-    else if (G_TIMER >= 100) {
+    else if (G_TIMER >= 120) {
       state = NEXTLEVEL;
     }  
     else {

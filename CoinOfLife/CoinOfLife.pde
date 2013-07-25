@@ -67,7 +67,7 @@ void draw() {
     player.getMenu().display();
   }
   else if (player.getState() == Player.NEXTLEVEL) {
-    player.getGlobalMenu().display();
+    player.getGlobalMenu().display(player.getLevel());
   }
   else {
     if (player.getState() == Player.SIMULATING) { 

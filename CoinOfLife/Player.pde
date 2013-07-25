@@ -186,30 +186,28 @@ public class Player {
   public void mouseReleased() {
     if (state == MENU && menu.getStartButton().mouseReleased()) {
       state = INIT;
-      return;
     }
     
-    if (state == NEXTLEVEL && global_menu.getContinueButton().mouseReleased()) {
+    else if (state == NEXTLEVEL && global_menu.getContinueButton().mouseReleased()) {
       state = INIT;
       // Increment the level
       this.level = this.level + 1;
       init();
-      return;
     }
     //if (state != INIT && state != PLAYING) return;
     
-    if (play_button.mouseReleased()) {
+    else if ((state == INIT || state == PLAYING) && play_button.mouseReleased()) {
       state = SIMULATING;
     }
-    else if (undo_button.mouseReleased()) {
+    else if ((state == INIT || state == PLAYING) && undo_button.mouseReleased()) {
       state = PLAYING;
       undo();
     }
-    else if (reset_button.mouseReleased()) {
+    else if ((state == INIT || state == PLAYING) && reset_button.mouseReleased()) {
       state = PLAYING;
       reset();
     }
-    else if (mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
+    else if ((state == INIT || state == PLAYING) && mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
       state = PLAYING;
       placeCoin();
     }

@@ -23,6 +23,7 @@ void setup() {
   // Setting up background and colors
   background(0);
   size(1240, 768);
+  frameRate(30);
   //stroke(255);
 
   // Preload images

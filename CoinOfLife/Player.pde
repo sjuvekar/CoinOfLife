@@ -246,7 +246,7 @@ public class Player {
       G_COIN_PLAYER.play();
       G_TIMER = G_TIMER + 1;
     }
-    else if (G_TIMER >= 120) {
+    else if (G_TIMER >= 80) {
       state = NEXTLEVEL;
     }  
     else {

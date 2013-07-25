@@ -36,9 +36,9 @@ public class Board {
         double r = random(0., 0.5);
         if (r < 0.002)
           gem_positions[i][j] = true;
-        else if (r < 0.00208)
+        else if (r < 0.0025)
           diamond_positions[i][j] = true;
-        else if (r < 0.00214)
+        else if (r < 0.00275)
           rock_positions[i][j] = true;
       }
     }

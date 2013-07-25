@@ -28,7 +28,7 @@ public class GlobalMenu {
     pushStyle();
     textSize(100);
     fill(183, 154, 0);
-    text("Level " + level, (int)(width /2) - 250, 150);
+    text("Level " + level, (int)(width /2) - 200, 150);
     popStyle(); 
     coin_scorer.drawit(c_width, c_height);
     gem_scorer.drawit(c_width, c_height);

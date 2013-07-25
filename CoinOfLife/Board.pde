@@ -19,8 +19,8 @@ public class Board {
   }
   
   public void init(int level) {
-    for (int i = 0; i < this.max_grid_x; i++) {
-      for (int j = 0; j < this.max_grid_y; j++) {
+    for (int i = 0; i < this.max_grid_x+2; i++) {
+      for (int j = 0; j < this.max_grid_y+2; j++) {
         alive[i][j] = false;
         ever_alive[i][j] = false;
         gem_positions[i][j] = false;
@@ -31,8 +31,8 @@ public class Board {
     }
     
     // Randomly set gems
-    for (int i = 1; i < this.max_grid_x-1; i++) {
-      for (int j = 1; j < this.max_grid_y-1; j++) {
+    for (int i = 1; i <= this.max_grid_x; i++) {
+      for (int j = 1; j <= this.max_grid_y; j++) {
         double r = random(0., 0.5);
         if (r < 0.002)
           gem_positions[i][j] = true;

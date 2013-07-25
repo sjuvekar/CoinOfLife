@@ -255,8 +255,10 @@ public class Player {
     play_button.mousePressed();
     undo_button.mousePressed();
     reset_button.mousePressed();
-    menu.getStartButton().mousePressed();
-    //global_menu.getContinueButton().mousePressed();
+    if (state == MENU)
+      menu.getStartButton().mousePressed();
+    if (state == NEXTLEVEL)
+      global_menu.getContinueButton().mousePressed();
   }
   // Private
   // Dimensions of grid

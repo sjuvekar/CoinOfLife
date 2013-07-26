@@ -12,7 +12,7 @@ public class Player {
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
 
-  final static int MAX_TIMER = 160;
+  final static int MAX_TIMER = 105;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
@@ -243,11 +243,14 @@ public class Player {
   // Busy wait for 100 units after FINISHED state
   public void waitForNextLevel() {
     if (G_TIMER == 10) {
+      G_COIN_PLAYER.cue(0);
       G_COIN_PLAYER.play();
       G_TIMER = G_TIMER + 1;
     }
     else if (G_TIMER >= 80) {
       state = NEXTLEVEL;
+      G_TIMER = 0;
+      G_COIN_PLAYER.stop();
     }  
     else {
       G_TIMER = G_TIMER + 1;

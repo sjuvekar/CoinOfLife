@@ -201,7 +201,10 @@ public class Player {
       this.level = this.level + 1;
       init();
     }
-    //if (state != INIT && state != PLAYING) return;
+    
+    else if (state == NEXTLEVEL && global_menu.getSoundButton().mouseReleased()) {
+      G_SOUND_STATE = !G_SOUND_STATE;
+    }
     
     else if ((state == INIT || state == PLAYING) && play_button.mouseReleased()) {
       state = SIMULATING;

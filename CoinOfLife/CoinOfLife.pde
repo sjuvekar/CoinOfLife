@@ -1,10 +1,10 @@
-/* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, logo.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
+/* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, logo.png, soundon.png, soundoff.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
 /* @pjs preload="play.wav, coin.wav"; */
 /* @pjs font="data/Clock.ttf, data/Button.ttf"; crisp=true; */ 
 Player player;
 Drawer drawer;
 
-PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE, G_LOGO_IMAGE;
+PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE, G_LOGO_IMAGE, G_SOUNDON_IMAGE, G_SOUNDOFF_IMAGE;
 PImage[] G_DIGIT_IMAGES;
 
 PFont G_CLOCK_FONT, G_BUTTON_FONT;
@@ -19,13 +19,16 @@ AudioPlayer G_PLAY_PLAYER, G_COIN_PLAYER;
 // Timer for playing coin sound
 int G_TIMER;
 
+// Global sound State
+boolean G_SOUND_STATE;
+
 void setup() {
   // Setting up background and colors
   background(0);
   size(1240, 768);
   frameRate(30);
   //stroke(255);
-
+  
   // Preload images
   G_COIN_IMAGE = loadImage("coin.png");
   G_BUTTON_IMAGE = loadImage("button.png");
@@ -41,6 +44,10 @@ void setup() {
 
   G_LOGO_IMAGE = loadImage("logo.png");
   
+  // Sound images
+  G_SOUNDON_IMAGE = loadImage("soundon.png");
+  G_SOUNDOFF_IMAGE = loadImage("soundoff.png");
+  
   // Preload font
   G_CLOCK_FONT = createFont("Clock.ttf", 48);
   G_BUTTON_FONT = createFont("Button.ttf", 24);
@@ -52,6 +59,9 @@ void setup() {
   G_COIN_PLAYER = G_PLAY_MAXIM.loadFile("coin.wav");
   G_PLAY_PLAYER.setLooping(false);
   G_COIN_PLAYER.setLooping(false);
+  
+  // Set Sound State
+  G_SOUND_STATE = true;
   
   int a_width = arena_width();
   int c_width = cell_width();

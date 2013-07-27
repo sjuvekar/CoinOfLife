@@ -4,11 +4,16 @@ public class Menu {
     int button_width = width - a_width - c_width;
     int button_height = c_width * 2;
     start_button = new CoinButton((int)((width - button_width) / 2), (int)((height) / 2) + 200, button_width, button_height, "Start");
+    sound_button = new Toggle("", width - 4 * c_width, height - 4 * c_height, 2 * c_width, 2 * c_height);
   }
   
   // getter 
   public CoinButton getStartButton() {
     return start_button;
+  }
+  
+  public Toggle getSoundButton() {
+    return sound_button;
   }
   
   public void display() {
@@ -27,9 +32,14 @@ public class Menu {
     text("Place coins on board, watch them evolve, earn gems, diamonds and rocks!", width/2 - 350, height/2 + 100);
     popStyle();
     start_button.drawit();
-    
+    if (G_SOUND_STATE)
+      sound_button.setActiveImage(G_SOUNDON_IMAGE);
+    else
+      sound_button.setActiveImage(G_SOUNDOFF_IMAGE);
+    sound_button.display();
   }
   
   // Button
   private CoinButton start_button;
+  private Toggle sound_button;
 }

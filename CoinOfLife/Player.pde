@@ -169,7 +169,8 @@ public class Player {
   // Simulate the board
   public void simulate() {
     if (state != SIMULATING) return;
-    G_PLAY_PLAYER.play();
+    if (G_SOUND_STATE)
+      G_PLAY_PLAYER.play();
     
     // Simulate the board
     int[] score_increments = board.simulate();
@@ -191,6 +192,9 @@ public class Player {
       state = INIT;
     }
     
+    else if (state == MENU && menu.getSoundButton().mouseReleased()) {
+      G_SOUND_STATE = !G_SOUND_STATE;
+    }
     else if (state == NEXTLEVEL && global_menu.getContinueButton().mouseReleased()) {
       state = INIT;
       // Increment the level
@@ -243,8 +247,10 @@ public class Player {
   // Busy wait for 100 units after FINISHED state
   public void waitForNextLevel() {
     if (G_TIMER == 10) {
-      G_COIN_PLAYER.cue(0);
-      G_COIN_PLAYER.play();
+      if (G_SOUND_STATE) {
+        G_COIN_PLAYER.cue(0);
+        G_COIN_PLAYER.play();
+      }
       G_TIMER = G_TIMER + 1;
     }
     else if (G_TIMER >= 80) {

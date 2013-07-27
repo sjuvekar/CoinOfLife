@@ -37,9 +37,9 @@ public class Player {
     int reset_y = (int)(c_height * 7.5);
     int button_width = width - a_width - c_width;
     int button_height = c_width * 2;
-    play_button = new CoinButton(button_x, play_y, button_width, button_height, "play");
-    undo_button = new CoinButton(button_x, undo_y, button_width, button_height, "undo");
-    reset_button = new CoinButton(button_x, reset_y, button_width, button_height, "reset");
+    play_button = new CoinButton(button_x, play_y, button_width, button_height, "Play");
+    undo_button = new CoinButton(button_x, undo_y, button_width, button_height, "Undo");
+    reset_button = new CoinButton(button_x, reset_y, button_width, button_height, "Reset");
 
     // Create timer
     int timer_x = a_width;

@@ -40,15 +40,15 @@ public class Drawer {
         }
         if (gem_positions[i][j]) {
           imageMode(CORNER);
-          image(G_GEM_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.2), (int)(c_height * 1.2));
+          image(G_GEM_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.1), (int)(c_height * 1.1));
         }
         if (diamond_positions[i][j]) {
           imageMode(CORNER);
-          image(G_DIAMOND_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.2), (int)(c_height * 1.2));
+          image(G_DIAMOND_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.1), (int)(c_height * 1.1));
         }
         if (rock_positions[i][j]) {
           imageMode(CORNER);
-          image(G_ROCK_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.2), (int)(c_height * 1.2));
+          image(G_ROCK_IMAGE, i * c_width, j * c_height, (int)(c_width * 1.1), (int)(c_height * 1.1));
         }
         if (hit_positions[i][j]) {
           imageMode(CENTER);

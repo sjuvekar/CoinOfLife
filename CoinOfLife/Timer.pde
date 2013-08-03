@@ -19,7 +19,7 @@ public class Timer {
     text("Time", x, y);
     
     fill(153,101,21);
-    rect(x, y + c_height, (int)( (width - a_width - c_width) * (max_value - curr_value) / max_value), c_height);
+    rect(x, y + (int)(c_height/2), (int)( (width - a_width - c_width) * (max_value - curr_value) / max_value), (int)(c_height/2));
   }
   
   // advance timer

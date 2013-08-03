@@ -11,11 +11,11 @@ public class Drawer {
     stroke(255);
 
     // Draw all the cells
-    for (int i = c_width; i < a_width; i += c_width) {
+    for (int i = c_width; i < a_width - c_width; i += c_width) {
       line(i, c_height, i, a_height - c_height);
     }
     for (int i = c_height; i < a_height; i += c_height) {
-      line(c_width, i, a_width - c_width, i);
+      line(c_width, i, a_width - (int)(3 * c_width / 2), i);
     }
 
     // Draw coins in cells
@@ -66,10 +66,10 @@ public class Drawer {
     player.getTimer().drawit(a_width, c_width, a_height, c_height);
     
     // Draw the scorer
-    player.getCoinScorer().drawit(c_width, c_height);
-    player.getGemScorer().drawit(c_width, c_height);
-    player.getDiamondScorer().drawit(c_width, c_height);
-    player.getRockScorer().drawit(c_width, c_height);
+    player.getCoinScorer().drawit();
+    player.getGemScorer().drawit();
+    player.getDiamondScorer().drawit();
+    player.getRockScorer().drawit();
   }
 
   //private

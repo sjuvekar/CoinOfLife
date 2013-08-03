@@ -2,7 +2,7 @@ public class Menu {
   
   public Menu(int a_width, int c_width, int a_height, int c_height) {
     int button_width = width - a_width - c_width;
-    int button_height = c_width * 2;
+    int button_height = c_width;
     start_button = new CoinButton((int)((width - button_width) / 2), (int)((height) / 2) + 200, button_width, button_height, "Start");
     sound_button = new Toggle("", width - 4 * c_width, height - 4 * c_height, 2 * c_width, 2 * c_height);
   }

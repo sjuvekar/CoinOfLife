@@ -27,6 +27,7 @@ void setup() {
   background(0);
   size(1240, 768);
   frameRate(30);
+  orientation(LANDSCAPE);
   //stroke(255);
   
   // Preload images

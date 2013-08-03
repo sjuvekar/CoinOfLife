@@ -7,7 +7,7 @@ int arena_height() {
 }
 
 int cell_width() {
-  return 24;
+  return 48;
 }
 
 int cell_height() {

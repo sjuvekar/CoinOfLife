@@ -12,7 +12,7 @@ public class Player {
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
 
-  final static int MAX_TIMER = 105;
+  final static int MAX_TIMER = 79;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
@@ -32,11 +32,11 @@ public class Player {
 
     // Create buttons  
     int button_x = a_width;
-    int play_y = c_height;
-    int undo_y = c_height * 4;
-    int reset_y = (int)(c_height * 7.5);
+    int play_y = (int)(c_height / 2);
+    int undo_y = c_height * 2;
+    int reset_y = (int)(c_height / 2 * 7.5);
     int button_width = width - a_width - c_width;
-    int button_height = c_width * 2;
+    int button_height = c_width;
     play_button = new CoinButton(button_x, play_y, button_width, button_height, "Play");
     undo_button = new CoinButton(button_x, undo_y, button_width, button_height, "Undo");
     reset_button = new CoinButton(button_x, reset_y, button_width, button_height, "Reset");
@@ -48,14 +48,14 @@ public class Player {
     
     // Create Scorers for multiple entities
     int scorer_x = a_width;
-    int coin_scorer_y = (int)(a_height * 0.5);
-    int gem_scorer_y = coin_scorer_y + 2 * this.c_height;
-    int diamond_scorer_y = gem_scorer_y + 2 * this.c_height;
-    int rock_scorer_y = diamond_scorer_y + 2 * this.c_height;
-    coin_scorer = new Scorer(scorer_x, coin_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_COIN_IMAGE);
-    gem_scorer = new Scorer(scorer_x, gem_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_GEM_IMAGE);
-    diamond_scorer = new Scorer(scorer_x, diamond_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_DIAMOND_IMAGE);
-    rock_scorer = new Scorer(scorer_x, rock_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_ROCK_IMAGE);
+    int coin_scorer_y = (int)(a_height * 0.4);
+    int gem_scorer_y = coin_scorer_y + (int)(1.5 * c_height);
+    int diamond_scorer_y = gem_scorer_y + (int)(1.5 * c_height);
+    int rock_scorer_y = diamond_scorer_y + (int)(1.5 * c_height);
+    coin_scorer = new Scorer(scorer_x, coin_scorer_y, c_width, c_height, G_COIN_IMAGE);
+    gem_scorer = new Scorer(scorer_x, gem_scorer_y, c_width, c_height, G_GEM_IMAGE);
+    diamond_scorer = new Scorer(scorer_x, diamond_scorer_y, c_width, c_height, G_DIAMOND_IMAGE);
+    rock_scorer = new Scorer(scorer_x, rock_scorer_y, c_width, c_height, G_ROCK_IMAGE);
     
     // Create Menu screen
     this.menu = new Menu(a_width, c_width, a_height, c_height);

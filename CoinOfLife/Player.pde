@@ -12,7 +12,7 @@ public class Player {
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
 
-  final static int MAX_TIMER = 72;
+  final static int MAX_TIMER = 79;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {

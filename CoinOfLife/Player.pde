@@ -12,7 +12,7 @@ public class Player {
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
 
-  final static int MAX_TIMER = 79;
+  final static int MAX_TIMER = 100;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
@@ -73,7 +73,8 @@ public class Player {
     coin_scorer.init();
     gem_scorer.init();
     diamond_scorer.init();
-    rock_scorer.init();  
+    rock_scorer.init();
+    L_OK_TO_PLAY = true;  
   }
   // Getters
   public int get_a_width() { 
@@ -169,8 +170,10 @@ public class Player {
   // Simulate the board
   public void simulate() {
     if (state != SIMULATING) return;
-    if (G_SOUND_STATE)
+    if (G_SOUND_STATE && L_OK_TO_PLAY) {
       G_PLAY_PLAYER.play();
+      L_OK_TO_PLAY = false;
+    }
     
     // Simulate the board
     int[] score_increments = board.simulate();
@@ -307,5 +310,7 @@ public class Player {
   // global menu to display between levels
   private GlobalMenu global_menu;
   
+  // Ok to play flag
+  private boolean L_OK_TO_PLAY;
 }
 

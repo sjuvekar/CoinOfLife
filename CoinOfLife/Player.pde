@@ -198,8 +198,11 @@ public class Player {
 
     else if (state == MENU && menu.getTutButton().mouseReleased()) {
       state = TUT;
+      init();
     }
-   
+    else if (state == TUT && mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
+      placeCoin();
+    }
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }
@@ -320,5 +323,6 @@ public class Player {
   
   // Ok to play flag
   private boolean L_OK_TO_PLAY;
+   
 }
 

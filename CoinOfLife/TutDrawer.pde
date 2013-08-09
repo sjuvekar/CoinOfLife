@@ -39,12 +39,8 @@ public class TutDrawer {
     // Red Squares
     pushStyle();
     fill(104, 0, 0);
-    rect(10 * c_width, 11 * c_height, c_width, c_height);
-    rect(10 * c_width, 10 * c_height, c_width, c_height);
-    rect(11 * c_width, 10 * c_height, c_width, c_height);
-    rect(12 * c_width, 10 * c_height, c_width, c_height);
-    rect(12 * c_width, 11 * c_height, c_width, c_height);
-    rect(12 * c_width, 12 * c_height, c_width, c_height);
+    for (int i = 0; i < TUT_POS_X.length; i++) 
+      rect(TUT_POS_X[i] * c_width, TUT_POS_Y[i] * c_height, c_width, c_height);
     popStyle(); 
     
     // Draw the buttons

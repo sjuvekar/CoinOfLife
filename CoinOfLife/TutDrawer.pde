@@ -57,6 +57,14 @@ public class TutDrawer {
       textSize(40);
       text("Hit Play!", a_width, height / 2);
     }
+    else if (player.getState() == Player.TUT_TIMEOUT) {
+      textSize(20);
+      text("Try placing", a_width, height / 2);
+      text("different coins", a_width, height / 2 + 30);
+      text("on board and", a_width, height / 2 + 60);
+      text("collide with", a_width, height / 2 + 90);
+      text("gems/diamonds", a_width, height / 2 + 120);
+    }
     else {
       textSize(20);
       text("Tap the Red Squares", a_width - c_width, height / 2);

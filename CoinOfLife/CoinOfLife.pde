@@ -84,6 +84,8 @@ void draw() {
     player.getGlobalMenu().display(player.getLevel());
   }
   else if (player.getState() >= Player.TUT) {
+    if (player.getState() == Player.TUT_SIMULATING) 
+      player.simulate();
     tut_drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }
   else {

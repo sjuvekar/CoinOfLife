@@ -12,7 +12,8 @@ public class Player {
   final static int TUT_PLAYING = 6;
   final static int TUT_READY = 7;
   final static int TUT_SIMULATING = 8;
-
+  final static int TUT_TIMEOUT = 9;
+  
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
 
@@ -171,9 +172,20 @@ public class Player {
     board.reset();
   }
 
+  // Check if all coins filled
+  private boolean allTutCoinsFilled() {
+      boolean[][] tempAlive = getAlive();
+      int my_count = 0;
+      for (int i = 0; i < tempAlive.length; i++) 
+        for (int j = 0; j < tempAlive[i].length; j++)
+         if (tempAlive[i][j])
+            my_count++;
+      return my_count == TUT_POS_X.length;
+  }
+  
   // Simulate the board
   public void simulate() {
-    if (state != SIMULATING) return;
+    if (state != SIMULATING && state != TUT_SIMULATING) return;
     if (G_SOUND_STATE && L_OK_TO_PLAY) {
       G_PLAY_PLAYER.play();
       L_OK_TO_PLAY = false;
@@ -187,8 +199,12 @@ public class Player {
     rock_scorer.incrementMaxScore(score_increments[3]);
     
     // Advance time for timer, check if it has timed out and set the state
-    if (timer.isTimeout()) 
-      state = TIMEOUT;
+    if (timer.isTimeout()) {
+      if (state == SIMULATING) 
+        state = TIMEOUT;
+      else
+        state = TUT_TIMEOUT;
+    }
     else
       timer.advanceit();
   }
@@ -217,17 +233,13 @@ public class Player {
       }
       if (flag)
         placeCoin();
-      // Check if all coins filled
-      boolean[][] tempAlive = getAlive();
-      int my_count = 0;
-      for (int i = 0; i < tempAlive.length; i++) 
-        for (int j = 0; j < tempAlive[i].length; j++)
-         if (tempAlive[i][j])
-            my_count++;
-      if (my_count == TUT_POS_X.length)
+      if (allTutCoinsFilled())
          state = TUT_READY;     
     }
     
+    else if (state == TUT_READY && play_button.mouseReleased()) {
+      state = TUT_SIMULATING;
+    }
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }

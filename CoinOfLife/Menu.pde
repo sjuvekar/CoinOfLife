@@ -4,6 +4,8 @@ public class Menu {
     int button_width = width - a_width - c_width;
     int button_height = c_width;
     start_button = new CoinButton((int)((width - button_width) / 2), (int)((height) / 2) + 200, button_width, button_height, "Start");
+    tut_button = new CoinButton((int)((width - button_width) / 2) - button_width, (int)((height) / 2) + 205, button_width - 20, button_height - 10, "Tutorial");
+    store_button = new CoinButton((int)((width - button_width) / 2) + button_width + 10, (int)((height) / 2) + 205, button_width - 20, button_height - 10, "Store");
     sound_button = new Toggle("", width - 4 * c_width, height - 4 * c_height, 2 * c_width, 2 * c_height);
   }
   
@@ -32,6 +34,8 @@ public class Menu {
     text("Place coins on board, watch them evolve, earn gems, diamonds and rocks!", width/2 - 350, height/2 + 100);
     popStyle();
     start_button.drawit();
+    tut_button.drawit();
+    store_button.drawit();
     if (G_SOUND_STATE)
       sound_button.setActiveImage(G_SOUNDON_IMAGE);
     else
@@ -40,6 +44,6 @@ public class Menu {
   }
   
   // Button
-  private CoinButton start_button;
+  private CoinButton start_button, tut_button, store_button;
   private Toggle sound_button;
 }

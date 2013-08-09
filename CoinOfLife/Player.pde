@@ -196,7 +196,7 @@ public class Player {
       state = INIT;
     }
 
-    if (state == MENU && menu.getTutButton().mouseReleased()) {
+    else if (state == MENU && menu.getTutButton().mouseReleased()) {
       state = TUT;
     }
    

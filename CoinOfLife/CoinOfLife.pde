@@ -3,6 +3,7 @@
 /* @pjs font="data/Clock.ttf, data/Button.ttf"; crisp=true; */ 
 Player player;
 Drawer drawer;
+TutDrawer tut_drawer;
 
 PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE, G_LOGO_IMAGE, G_SOUNDON_IMAGE, G_SOUNDOFF_IMAGE;
 PImage[] G_DIGIT_IMAGES;
@@ -72,6 +73,7 @@ void setup() {
   int max_grid_y = max_grid_Y();
   player = new Player(a_width, c_width, a_height, c_height, max_grid_x, max_grid_y);
   drawer = new Drawer(player);
+  tut_drawer = new TutDrawer(player);
 }
 
 void draw() {
@@ -80,6 +82,9 @@ void draw() {
   }
   else if (player.getState() == Player.NEXTLEVEL) {
     player.getGlobalMenu().display(player.getLevel());
+  }
+  else if (player.getState() == Player.TUT) {
+    tut_drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }
   else {
     if (player.getState() == Player.SIMULATING) { 

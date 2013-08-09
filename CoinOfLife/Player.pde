@@ -8,11 +8,16 @@ public class Player {
   final static int SIMULATING = 2;
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
-
+  final static int TUT = 5;
+  final static int TUT_PLAYING = 6;
+  final static int TUT_READY = 7;
+  final static int TUT_SIMULATING = 8;
+  final static int TUT_TIMEOUT = 9;
+  
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
 
-  final static int MAX_TIMER = 105;
+  final static int MAX_TIMER = 90;
 
   // Constructor
   public Player(int a_width, int c_width, int a_height, int c_height, int max_grid_x, int max_grid_y) {
@@ -32,14 +37,15 @@ public class Player {
 
     // Create buttons  
     int button_x = a_width;
-    int play_y = c_height;
-    int undo_y = c_height * 4;
-    int reset_y = (int)(c_height * 7.5);
+    int play_y = (int)(c_height / 2);
+    int undo_y = c_height * 2;
+    int reset_y = (int)(c_height / 2 * 7.5);
     int button_width = width - a_width - c_width;
-    int button_height = c_width * 2;
+    int button_height = c_width;
     play_button = new CoinButton(button_x, play_y, button_width, button_height, "Play");
     undo_button = new CoinButton(button_x, undo_y, button_width, button_height, "Undo");
     reset_button = new CoinButton(button_x, reset_y, button_width, button_height, "Reset");
+    goback_button = new CoinButton(button_x, play_y, button_width, button_height, "Main Menu");
 
     // Create timer
     int timer_x = a_width;
@@ -48,14 +54,14 @@ public class Player {
     
     // Create Scorers for multiple entities
     int scorer_x = a_width;
-    int coin_scorer_y = (int)(a_height * 0.5);
-    int gem_scorer_y = coin_scorer_y + 2 * this.c_height;
-    int diamond_scorer_y = gem_scorer_y + 2 * this.c_height;
-    int rock_scorer_y = diamond_scorer_y + 2 * this.c_height;
-    coin_scorer = new Scorer(scorer_x, coin_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_COIN_IMAGE);
-    gem_scorer = new Scorer(scorer_x, gem_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_GEM_IMAGE);
-    diamond_scorer = new Scorer(scorer_x, diamond_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_DIAMOND_IMAGE);
-    rock_scorer = new Scorer(scorer_x, rock_scorer_y, (int)(1.5 * c_width), (int)(1.5 * c_height), G_ROCK_IMAGE);
+    int coin_scorer_y = (int)(a_height * 0.4);
+    int gem_scorer_y = coin_scorer_y + (int)(1.5 * c_height);
+    int diamond_scorer_y = gem_scorer_y + (int)(1.5 * c_height);
+    int rock_scorer_y = diamond_scorer_y + (int)(1.5 * c_height);
+    coin_scorer = new Scorer(scorer_x, coin_scorer_y, c_width, c_height, G_COIN_IMAGE);
+    gem_scorer = new Scorer(scorer_x, gem_scorer_y, c_width, c_height, G_GEM_IMAGE);
+    diamond_scorer = new Scorer(scorer_x, diamond_scorer_y, c_width, c_height, G_DIAMOND_IMAGE);
+    rock_scorer = new Scorer(scorer_x, rock_scorer_y, c_width, c_height, G_ROCK_IMAGE);
     
     // Create Menu screen
     this.menu = new Menu(a_width, c_width, a_height, c_height);
@@ -73,7 +79,8 @@ public class Player {
     coin_scorer.init();
     gem_scorer.init();
     diamond_scorer.init();
-    rock_scorer.init();  
+    rock_scorer.init();
+    L_OK_TO_PLAY = true;  
   }
   // Getters
   public int get_a_width() { 
@@ -115,6 +122,9 @@ public class Player {
   public CoinButton get_reset_button() { 
     return reset_button;
   }
+  public CoinButton get_goback_button() { 
+    return goback_button;
+  }
   public Timer getTimer() { 
     return timer;
   }
@@ -150,7 +160,7 @@ public class Player {
   
   // Place a coin on cell
   public void placeCoin() {
-    if (state != PLAYING) return;
+    if (state != PLAYING && state != TUT_PLAYING) return;
     board.placeCoin();
   }
 
@@ -166,11 +176,24 @@ public class Player {
     board.reset();
   }
 
+  // Check if all coins filled
+  private boolean allTutCoinsFilled() {
+      boolean[][] tempAlive = getAlive();
+      int my_count = 0;
+      for (int i = 0; i < tempAlive.length; i++) 
+        for (int j = 0; j < tempAlive[i].length; j++)
+         if (tempAlive[i][j])
+            my_count++;
+      return my_count == TUT_POS_X.length;
+  }
+  
   // Simulate the board
   public void simulate() {
-    if (state != SIMULATING) return;
-    if (G_SOUND_STATE)
+    if (state != SIMULATING && state != TUT_SIMULATING) return;
+    if (G_SOUND_STATE && L_OK_TO_PLAY) {
       G_PLAY_PLAYER.play();
+      L_OK_TO_PLAY = false;
+    }
     
     // Simulate the board
     int[] score_increments = board.simulate();
@@ -180,8 +203,12 @@ public class Player {
     rock_scorer.incrementMaxScore(score_increments[3]);
     
     // Advance time for timer, check if it has timed out and set the state
-    if (timer.isTimeout()) 
-      state = TIMEOUT;
+    if (timer.isTimeout()) {
+      if (state == SIMULATING) 
+        state = TIMEOUT;
+      else
+        state = TUT_TIMEOUT;
+    }
     else
       timer.advanceit();
   }
@@ -191,7 +218,36 @@ public class Player {
     if (state == MENU && menu.getStartButton().mouseReleased()) {
       state = INIT;
     }
+
+    else if (state == MENU && menu.getTutButton().mouseReleased()) {
+      state = TUT;
+      init();
+    }
+    else if ( (state == TUT || state == TUT_PLAYING) && mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
+      state = TUT_PLAYING;
+      boolean flag = false;
+      int my_X = (int) (mouseX /  c_width);
+      int my_Y = (int) (mouseY / c_height);
+      // Check if inside Red Square
+      for (int i = 0; i < TUT_POS_X.length; i++) {
+        if (TUT_POS_X[i] == my_X && TUT_POS_Y[i] == my_Y) {
+          flag = true;
+          break;
+        }
+      }
+      if (flag)
+        placeCoin();
+      if (allTutCoinsFilled())
+         state = TUT_READY;     
+    }
     
+    else if (state == TUT_READY && play_button.mouseReleased()) {
+      state = TUT_SIMULATING;
+    }
+    else if (state == TUT_TIMEOUT && goback_button.mouseReleased()) {
+      state = MENU;
+      init();
+    }
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }
@@ -267,13 +323,19 @@ public class Player {
   }
   
   public void mousePressed() {
-    play_button.mousePressed();
+    if (state != TUT_TIMEOUT)
+      play_button.mousePressed();
     undo_button.mousePressed();
     reset_button.mousePressed();
-    if (state == MENU)
+    if (state == MENU) {
       menu.getStartButton().mousePressed();
+      menu.getTutButton().mousePressed();
+      menu.getStoreButton().mousePressed();
+    }
     if (state == NEXTLEVEL)
       global_menu.getContinueButton().mousePressed();
+    if (state == TUT_TIMEOUT)
+      goback_button.mousePressed();
   }
   // Private
   // Dimensions of grid
@@ -293,7 +355,7 @@ public class Player {
   private Board board;
   
   // Buttons
-  private CoinButton play_button, undo_button, reset_button;
+  private CoinButton play_button, undo_button, reset_button, goback_button;
 
   // Timer to check if game has ended
   private Timer timer;
@@ -307,5 +369,8 @@ public class Player {
   // global menu to display between levels
   private GlobalMenu global_menu;
   
+  // Ok to play flag
+  private boolean L_OK_TO_PLAY;
+   
 }
 

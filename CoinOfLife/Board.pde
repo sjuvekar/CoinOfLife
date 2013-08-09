@@ -34,11 +34,11 @@ public class Board {
     for (int i = 1; i <= this.max_grid_x; i++) {
       for (int j = 1; j <= this.max_grid_y; j++) {
         double r = random(0., 0.5);
-        if (r < 0.002)
+        if (r < 0.00692)
           gem_positions[i][j] = true;
-        else if (r < 0.0025)
+        else if (r < 0.010380)
           diamond_positions[i][j] = true;
-        else if (r < 0.00275)
+        else if (r < 0.01384)
           rock_positions[i][j] = true;
       }
     }

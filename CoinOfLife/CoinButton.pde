@@ -17,7 +17,10 @@ public class CoinButton {
     //stroke(255);
     //fill(0);
     //image(G_BUTTON_IMAGE, x, y, wd, ht);
+    pushStyle();
+    fill(0);
     this.button.display();
+    popStyle();
     //textSize(20);
     //text(txt, x + 3 * c_width, (int)(y + 1.5 * c_height));
   }

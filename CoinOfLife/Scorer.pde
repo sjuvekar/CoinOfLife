@@ -35,7 +35,7 @@ public class Scorer {
     return (this.score >= this.max_score);
   }
 
-  public void drawit(int c_width, int c_height) {
+  public void drawit() {
     fill(0);
     stroke(0);
     int s = score;
@@ -49,7 +49,7 @@ public class Scorer {
         break;
     }
     
-    image(this.m_image, x, y, c_width * 1.5, c_height * 1.5);
+    image(this.m_image, x, y, this.wd, this.ht);
     for (int j = digits.length - 1; j >= 0; j--) {
        image(G_DIGIT_IMAGES[digits[j]], x + (digits.length - j) * wd, y, wd, ht);
     }

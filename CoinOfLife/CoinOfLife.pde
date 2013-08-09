@@ -1,13 +1,14 @@
-/* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, logo.png, soundon.png, soundoff.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
+  /* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, logo.png, soundon.png, soundoff.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
 /* @pjs preload="play.wav, coin.wav"; */
 /* @pjs font="data/Clock.ttf, data/Button.ttf"; crisp=true; */ 
 Player player;
 Drawer drawer;
+TutDrawer tut_drawer;
 
 PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE, G_LOGO_IMAGE, G_SOUNDON_IMAGE, G_SOUNDOFF_IMAGE;
 PImage[] G_DIGIT_IMAGES;
 
-PFont G_CLOCK_FONT, G_BUTTON_FONT;
+PFont G_CLOCK_FONT, G_BUTTON_FONT, G_TUT_FONT;
 
 // Audio Setting
 // Maxims
@@ -27,6 +28,7 @@ void setup() {
   background(0);
   size(1240, 768);
   frameRate(30);
+  orientation(LANDSCAPE);
   //stroke(255);
   
   // Preload images
@@ -51,6 +53,7 @@ void setup() {
   // Preload font
   G_CLOCK_FONT = createFont("Clock.ttf", 48);
   G_BUTTON_FONT = createFont("Button.ttf", 24);
+  G_TUT_FONT = createFont("fantasy", 20);
   
   // Create Maxim and AudioPlayers
   G_PLAY_MAXIM = new Maxim(this);
@@ -71,6 +74,7 @@ void setup() {
   int max_grid_y = max_grid_Y();
   player = new Player(a_width, c_width, a_height, c_height, max_grid_x, max_grid_y);
   drawer = new Drawer(player);
+  tut_drawer = new TutDrawer(player);
 }
 
 void draw() {
@@ -79,6 +83,11 @@ void draw() {
   }
   else if (player.getState() == Player.NEXTLEVEL) {
     player.getGlobalMenu().display(player.getLevel());
+  }
+  else if (player.getState() >= Player.TUT) {
+    if (player.getState() == Player.TUT_SIMULATING) 
+      player.simulate();
+    tut_drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }
   else {
     if (player.getState() == Player.SIMULATING) { 

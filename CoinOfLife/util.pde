@@ -7,7 +7,7 @@ int arena_height() {
 }
 
 int cell_width() {
-  return 24;
+  return 48;
 }
 
 int cell_height() {
@@ -31,4 +31,7 @@ int min_grid_Y() {
   return 1;
 }
 
+final int[] TUT_POS_X = {7, 7, 8, 9, 9, 9};
+final int[] TUT_POS_Y = {7, 6, 6, 6, 7, 8};
+  
 

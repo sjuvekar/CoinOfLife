@@ -83,7 +83,7 @@ void draw() {
   else if (player.getState() == Player.NEXTLEVEL) {
     player.getGlobalMenu().display(player.getLevel());
   }
-  else if (player.getState() == Player.TUT) {
+  else if (player.getState() >= Player.TUT) {
     tut_drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }
   else {

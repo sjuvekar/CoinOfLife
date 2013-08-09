@@ -17,7 +17,14 @@ public class TutDrawer {
     for (int i = c_height; i < a_height; i += c_height) {
       line(c_width, i, a_width - (int)(3 * c_width / 2), i);
     }
-
+    
+    // Red Squares
+    pushStyle();
+    fill(104, 0, 0);
+    for (int i = 0; i < TUT_POS_X.length; i++) 
+      rect(TUT_POS_X[i] * c_width, TUT_POS_Y[i] * c_height, c_width, c_height);
+    popStyle(); 
+    
     // Draw coins in cells
     boolean[][] alive = player.getAlive();
     boolean[][] ever_alive = player.getEverAlive();
@@ -35,18 +42,9 @@ public class TutDrawer {
         }
       }
     }
-   
-    // Red Squares
-    pushStyle();
-    fill(104, 0, 0);
-    for (int i = 0; i < TUT_POS_X.length; i++) 
-      rect(TUT_POS_X[i] * c_width, TUT_POS_Y[i] * c_height, c_width, c_height);
-    popStyle(); 
     
     // Draw the buttons
     player.get_play_button().drawit();
-    player.get_undo_button().drawit();
-    player.get_reset_button().drawit();
 
     // Draw the timer
     player.getTimer().drawit(a_width, c_width, a_height, c_height);
@@ -54,8 +52,15 @@ public class TutDrawer {
     // Draw instructions
     pushStyle();
     fill(255, 255, 255);
-    textSize(20);
-    text("Tap the Red Squares", a_width - c_width, height / 2);
+    
+    if (player.getState() == Player.TUT_SIMULATING || player.getState() == Player.TUT_READY) {
+      textSize(40);
+      text("Hit Play!", a_width, height / 2);
+    }
+    else {
+      textSize(20);
+      text("Tap the Red Squares", a_width - c_width, height / 2);
+    }
     popStyle();
   }
   

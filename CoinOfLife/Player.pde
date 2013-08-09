@@ -9,6 +9,9 @@ public class Player {
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
   final static int TUT = 5;
+  final static int TUT_PLAYING = 6;
+  final static int TUT_READY = 7;
+  final static int TUT_SIMULATING = 8;
 
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
@@ -152,7 +155,7 @@ public class Player {
   
   // Place a coin on cell
   public void placeCoin() {
-    if (state != PLAYING) return;
+    if (state != PLAYING && state != TUT_PLAYING) return;
     board.placeCoin();
   }
 
@@ -200,9 +203,31 @@ public class Player {
       state = TUT;
       init();
     }
-    else if (state == TUT && mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
-      placeCoin();
+    else if ( (state == TUT || state == TUT_PLAYING) && mouseX >= c_width && mouseX <= a_width - c_width && mouseY >= c_height && mouseY <= a_height - c_height) {
+      state = TUT_PLAYING;
+      boolean flag = false;
+      int my_X = (int) (mouseX /  c_width);
+      int my_Y = (int) (mouseY / c_height);
+      // Check if inside Red Square
+      for (int i = 0; i < TUT_POS_X.length; i++) {
+        if (TUT_POS_X[i] == my_X && TUT_POS_Y[i] == my_Y) {
+          flag = true;
+          break;
+        }
+      }
+      if (flag)
+        placeCoin();
+      // Check if all coins filled
+      boolean[][] tempAlive = getAlive();
+      int my_count = 0;
+      for (int i = 0; i < tempAlive.length; i++) 
+        for (int j = 0; j < tempAlive[i].length; j++)
+         if (tempAlive[i][j])
+            my_count++;
+      if (my_count == TUT_POS_X.length)
+         state = TUT_READY;     
     }
+    
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }

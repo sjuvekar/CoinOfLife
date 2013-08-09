@@ -45,6 +45,7 @@ public class Player {
     play_button = new CoinButton(button_x, play_y, button_width, button_height, "Play");
     undo_button = new CoinButton(button_x, undo_y, button_width, button_height, "Undo");
     reset_button = new CoinButton(button_x, reset_y, button_width, button_height, "Reset");
+    goback_button = new CoinButton(button_x, play_y, button_width, button_height, "Main Menu");
 
     // Create timer
     int timer_x = a_width;
@@ -120,6 +121,9 @@ public class Player {
   }
   public CoinButton get_reset_button() { 
     return reset_button;
+  }
+  public CoinButton get_goback_button() { 
+    return goback_button;
   }
   public Timer getTimer() { 
     return timer;
@@ -240,6 +244,10 @@ public class Player {
     else if (state == TUT_READY && play_button.mouseReleased()) {
       state = TUT_SIMULATING;
     }
+    else if (state == TUT_TIMEOUT && goback_button.mouseReleased()) {
+      state = MENU;
+      init();
+    }
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }
@@ -315,7 +323,8 @@ public class Player {
   }
   
   public void mousePressed() {
-    play_button.mousePressed();
+    if (state != TUT_TIMEOUT)
+      play_button.mousePressed();
     undo_button.mousePressed();
     reset_button.mousePressed();
     if (state == MENU) {
@@ -325,6 +334,8 @@ public class Player {
     }
     if (state == NEXTLEVEL)
       global_menu.getContinueButton().mousePressed();
+    if (state == TUT_TIMEOUT)
+      goback_button.mousePressed();
   }
   // Private
   // Dimensions of grid
@@ -344,7 +355,7 @@ public class Player {
   private Board board;
   
   // Buttons
-  private CoinButton play_button, undo_button, reset_button;
+  private CoinButton play_button, undo_button, reset_button, goback_button;
 
   // Timer to check if game has ended
   private Timer timer;

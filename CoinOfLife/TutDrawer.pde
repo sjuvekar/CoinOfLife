@@ -43,8 +43,11 @@ public class TutDrawer {
       }
     }
     
-    // Draw the buttons
-    player.get_play_button().drawit();
+      // Draw the buttons
+    if (player.getState() == Player.TUT_TIMEOUT)
+      player.get_goback_button().drawit();
+    else
+      player.get_play_button().drawit();
 
     // Draw the timer
     player.getTimer().drawit(a_width, c_width, a_height, c_height);
@@ -52,21 +55,20 @@ public class TutDrawer {
     // Draw instructions
     pushStyle();
     fill(255, 255, 255);
+    textFont(G_TUT_FONT);
     
     if (player.getState() == Player.TUT_SIMULATING || player.getState() == Player.TUT_READY) {
-      textSize(40);
-      text("Hit Play!", a_width, height / 2);
+      textSize(45);
+      text("Hit Play!", a_width + c_width, height / 2);
     }
     else if (player.getState() == Player.TUT_TIMEOUT) {
       textSize(20);
-      text("Try placing", a_width, height / 2);
-      text("different coins", a_width, height / 2 + 30);
-      text("on board and", a_width, height / 2 + 60);
-      text("collide with", a_width, height / 2 + 90);
-      text("gems/diamonds", a_width, height / 2 + 120);
+      text("Try placing different", a_width, height / 2);
+      text("coins on board and", a_width, height / 2 + 30);
+      text("collide with gems/diamonds", a_width, height / 2 + 60);
     }
     else {
-      textSize(20);
+      textSize(30);
       text("Tap the Red Squares", a_width - c_width, height / 2);
     }
     popStyle();

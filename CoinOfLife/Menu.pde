@@ -13,7 +13,15 @@ public class Menu {
   public CoinButton getStartButton() {
     return start_button;
   }
-  
+
+   public CoinButton getTutButton() {
+    return tut_button;
+  }
+
+   public CoinButton getStoreButton() {
+    return store_button;
+  }
+
   public Toggle getSoundButton() {
     return sound_button;
   }

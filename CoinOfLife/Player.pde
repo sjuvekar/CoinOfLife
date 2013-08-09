@@ -8,6 +8,7 @@ public class Player {
   final static int SIMULATING = 2;
   final static int TIMEOUT = 3;
   final static int FINISHED = 4;
+  final static int TUT = 5;
 
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
@@ -194,7 +195,11 @@ public class Player {
     if (state == MENU && menu.getStartButton().mouseReleased()) {
       state = INIT;
     }
-    
+
+    if (state == MENU && menu.getTutButton().mouseReleased()) {
+      state = TUT;
+    }
+   
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }
@@ -273,8 +278,11 @@ public class Player {
     play_button.mousePressed();
     undo_button.mousePressed();
     reset_button.mousePressed();
-    if (state == MENU)
+    if (state == MENU) {
       menu.getStartButton().mousePressed();
+      menu.getTutButton().mousePressed();
+      menu.getStoreButton().mousePressed();
+    }
     if (state == NEXTLEVEL)
       global_menu.getContinueButton().mousePressed();
   }

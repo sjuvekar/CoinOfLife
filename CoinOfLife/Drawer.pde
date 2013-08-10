@@ -12,7 +12,7 @@ public class Drawer {
 
     // Draw all the cells
     for (int i = c_width; i < a_width - c_width; i += c_width) {
-      line(i, c_height, i, a_height - c_height);
+      line(i, c_height, i, a_height - (int)(1.2 * c_height));
     }
     for (int i = c_height; i < a_height; i += c_height) {
       line(c_width, i, a_width - (int)(3 * c_width / 2), i);

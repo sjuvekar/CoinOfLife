@@ -27,9 +27,9 @@ public class GlobalMenu {
     background(0);
     stroke(255);
     pushStyle();
+    textFont(G_CLOCK_FONT);
     textSize(100);
     fill(183, 154, 0);
-    textFont(G_CLOCK_FONT);
     text("Level " + level, (int)(width /2) - 225, 150);
     popStyle(); 
     coin_scorer.drawit();

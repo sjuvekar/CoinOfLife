@@ -55,7 +55,6 @@ public class TutDrawer {
     // Draw instructions
     pushStyle();
     fill(255, 255, 255);
-    textFont(G_TUT_FONT);
     
     if (player.getState() == Player.TUT_SIMULATING || player.getState() == Player.TUT_READY) {
       textSize(45);

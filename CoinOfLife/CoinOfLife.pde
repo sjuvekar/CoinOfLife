@@ -8,7 +8,7 @@ TutDrawer tut_drawer;
 PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE, G_LOGO_IMAGE, G_SOUNDON_IMAGE, G_SOUNDOFF_IMAGE;
 PImage[] G_DIGIT_IMAGES;
 
-PFont G_CLOCK_FONT, G_BUTTON_FONT, G_TUT_FONT;
+PFont G_CLOCK_FONT, G_BUTTON_FONT;
 
 // Audio Setting
 // Maxims
@@ -53,7 +53,6 @@ void setup() {
   // Preload font
   G_CLOCK_FONT = createFont("Clock.ttf", 48);
   G_BUTTON_FONT = createFont("Button.ttf", 24);
-  G_TUT_FONT = createFont("fantasy", 20);
   
   // Create Maxim and AudioPlayers
   G_PLAY_MAXIM = new Maxim(this);

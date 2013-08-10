@@ -152,6 +152,9 @@ public class Player {
   public int getState() {
     return state;
   }
+  public boolean get_tut_wrong() {
+    return TUT_WRONG;
+  }
   
   //Setters
   public void setState(int st) {
@@ -235,12 +238,18 @@ public class Player {
           break;
         }
       }
-      if (flag)
+      if (flag) {
         placeCoin();
+        TUT_WRONG = false;
+      }
+      else
+        TUT_WRONG = true;
       if (allTutCoinsFilled())
          state = TUT_READY;     
     }
-    
+    else if ((state == TUT || state == TUT_PLAYING) && play_button.mouseReleased()) {
+      TUT_WRONG = true;
+    }
     else if (state == TUT_READY && play_button.mouseReleased()) {
       state = TUT_SIMULATING;
     }
@@ -371,6 +380,9 @@ public class Player {
   
   // Ok to play flag
   private boolean L_OK_TO_PLAY;
+  
+  // Tutorial wrong flag
+  private boolean TUT_WRONG;
    
 }
 

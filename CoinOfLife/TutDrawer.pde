@@ -46,8 +46,16 @@ public class TutDrawer {
       // Draw the buttons
     if (player.getState() == Player.TUT_TIMEOUT)
       player.get_goback_button().drawit();
-    else
+    else {
       player.get_play_button().drawit();
+      if (player.get_tut_wrong()) {
+        pushStyle();
+        textSize(24);
+        fill(200, 0, 0);
+        text("Tap all and only red squares!", a_width - c_width, 3 * c_height);
+        popStyle(); 
+      }
+    }
 
     // Draw the timer
     player.getTimer().drawit(a_width, c_width, a_height, c_height);

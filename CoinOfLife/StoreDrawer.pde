@@ -50,6 +50,7 @@ public class StoreDrawer {
     
     int top_text_y = top_y + 35;
     textSize(30);
+    fill(255);
     text("X 1000", left_text_x, top_text_y);
     text("X 10000", right_text_x, top_text_y);
     text("X 100", left_text_x, top_text_y + 2 * button_height);
@@ -59,6 +60,11 @@ public class StoreDrawer {
     text("X 100", left_text_x, top_text_y + 6 * button_height);
     text("X 1000", right_text_x, top_text_y + 6 * button_height);
     
+    popStyle();
+    
+    pushStyle();
+    
+    fill(0);
     coin_1000.drawit();
     coin_10000.drawit();
     gem_100.drawit();

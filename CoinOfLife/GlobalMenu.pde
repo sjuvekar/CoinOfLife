@@ -31,7 +31,7 @@ public class GlobalMenu {
     textFont(G_CLOCK_FONT);
     textSize(100);
     fill(183, 154, 0);
-    text("Level " + level, (int)(width /2) - 225, 150);
+    text("Level " + level, (int)(width /2) - 250, 210);
     popStyle(); 
     coin_scorer.drawit();
     gem_scorer.drawit();

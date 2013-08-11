@@ -4,6 +4,7 @@
 Player player;
 Drawer drawer;
 TutDrawer tut_drawer;
+StoreDrawer store_drawer;
 
 PImage G_COIN_IMAGE, G_BUTTON_IMAGE, G_ACTIVE_BUTTON_IMAGE, G_GEM_IMAGE, G_DIAMOND_IMAGE, G_ROCK_IMAGE, G_HIT_IMAGE, G_LOGO_IMAGE, G_SOUNDON_IMAGE, G_SOUNDOFF_IMAGE;
 PImage[] G_DIGIT_IMAGES;
@@ -74,6 +75,7 @@ void setup() {
   player = new Player(a_width, c_width, a_height, c_height, max_grid_x, max_grid_y);
   drawer = new Drawer(player);
   tut_drawer = new TutDrawer(player);
+  store_drawer = new StoreDrawer(player);
 }
 
 void draw() {
@@ -87,6 +89,9 @@ void draw() {
     if (player.getState() == Player.TUT_SIMULATING) 
       player.simulate();
     tut_drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
+  }
+  else if (player.getState() == Player.STORE_INIT) {
+    store_drawer.drawit(player.get_a_width(), player.get_c_width(), player.get_a_height(), player.get_c_height());
   }
   else {
     if (player.getState() == Player.SIMULATING) { 

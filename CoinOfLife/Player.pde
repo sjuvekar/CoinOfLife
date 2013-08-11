@@ -16,6 +16,7 @@ public class Player {
   
   final static int MENU = -1;
   final static int NEXTLEVEL = -2;
+  final static int STORE_INIT = -3;
 
   final static int MAX_TIMER = 90;
 
@@ -54,7 +55,7 @@ public class Player {
     
     // Create Scorers for multiple entities
     int scorer_x = a_width;
-    int coin_scorer_y = (int)(a_height * 0.4);
+    int coin_scorer_y = (int)(a_height * 0.425);
     int gem_scorer_y = coin_scorer_y + (int)(1.5 * c_height);
     int diamond_scorer_y = gem_scorer_y + (int)(1.5 * c_height);
     int rock_scorer_y = diamond_scorer_y + (int)(1.5 * c_height);
@@ -257,6 +258,9 @@ public class Player {
       state = MENU;
       init();
     }
+    else if ((state == MENU && menu.getStoreButton().mouseReleased()) || (state == NEXTLEVEL && global_menu.getStoreButton().mouseReleased())) {
+      state = STORE_INIT;
+    } 
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }

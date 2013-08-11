@@ -19,7 +19,8 @@ public class GlobalMenu {
     diamond_scorer.incrementScore(1);
     rock_scorer.incrementScore(1);
     
-    continue_button = new CoinButton((int)((width - button_width) / 2), (int)((height) / 2) + 200, button_width, button_height, "Next Level");
+    continue_button = new CoinButton((int)((width - button_width) / 2) - 150, (int)((height) / 2) + 200, button_width, button_height, "Next Level");
+    store_button = new CoinButton((int)((width - button_width) / 2) + 150, (int)((height) / 2) + 200, button_width, button_height, "Store");
     sound_button = new Toggle("", width - 4 * c_width, height - 4 * c_height, 2 * c_width, 2 * c_height);
   }
   
@@ -37,6 +38,7 @@ public class GlobalMenu {
     diamond_scorer.drawit();
     rock_scorer.drawit();
     continue_button.drawit();
+    store_button.drawit();
     if (G_SOUND_STATE)
       sound_button.setActiveImage(G_SOUNDON_IMAGE);
     else
@@ -60,6 +62,9 @@ public class GlobalMenu {
   public CoinButton getContinueButton() {
     return continue_button;
   }
+  public CoinButton getStoreButton() {
+    return store_button;
+  }
   public Toggle getSoundButton() {
     return sound_button;
   }
@@ -70,7 +75,7 @@ public class GlobalMenu {
   private int coins, gems, diamonds, rocks;
   
   // Continue Button
-  private CoinButton continue_button;
+  private CoinButton continue_button, store_button;
   private Toggle sound_button;
   
   private Scorer coin_scorer, gem_scorer, diamond_scorer, rock_scorer;

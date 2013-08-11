@@ -268,8 +268,8 @@ public class Player {
       state = STORE_INIT;
     }
     else if (state == STORE_INIT && store_drawer.getBackButton().mouseReleased()) {
-      state = INIT;
-      init();
+      state = NEXTLEVEL;
+      G_TIMER = 0;
     }   
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;

@@ -83,6 +83,6 @@ public class StoreDrawer {
     return back_button;
   }
   
-  private CoinButton coin_1000, coin_10000, gem_100, gem_1000, diamond_100, diamond_1000, rock_100, rock_1000;
+  public CoinButton coin_1000, coin_10000, gem_100, gem_1000, diamond_100, diamond_1000, rock_100, rock_1000;
   private CoinButton back_button;
 }

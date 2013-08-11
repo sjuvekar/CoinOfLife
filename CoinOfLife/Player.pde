@@ -346,10 +346,11 @@ public class Player {
   }
   
   public void mousePressed() {
-    if (state != TUT_TIMEOUT)
-      play_button.mousePressed();
-    undo_button.mousePressed();
-    reset_button.mousePressed();
+    if (state != TUT_TIMEOUT && state!= STORE_INIT) {
+      play_button.mousePressed(); 
+      undo_button.mousePressed();
+      reset_button.mousePressed();
+    }
     if (state == MENU) {
       menu.getStartButton().mousePressed();
       menu.getTutButton().mousePressed();
@@ -360,7 +361,15 @@ public class Player {
     if (state == TUT_TIMEOUT)
       goback_button.mousePressed();
     if (state == STORE_INIT) {
-      store_drawer.getBackButton().mousePressed(); 
+      store_drawer.getBackButton().mousePressed();
+      store_drawer.coin_1000.mousePressed();
+      store_drawer.coin_10000.mousePressed();
+      store_drawer.gem_100.mousePressed();
+      store_drawer.gem_1000.mousePressed();
+      store_drawer.diamond_100.mousePressed();
+      store_drawer.diamond_1000.mousePressed();
+      store_drawer.rock_100.mousePressed();
+      store_drawer.rock_1000.mousePressed(); 
     }
   }
   // Private

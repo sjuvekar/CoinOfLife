@@ -70,6 +70,9 @@ public class Player {
     // Create the global menu screen
     this.global_menu = new GlobalMenu(a_width, c_width, a_height, c_height);
     
+    // Create Store drawer
+    store_drawer = new StoreDrawer(a_width, c_width, a_height, c_height);
+    
     init();
   }
 
@@ -155,6 +158,9 @@ public class Player {
   }
   public boolean get_tut_wrong() {
     return TUT_WRONG;
+  }
+  public StoreDrawer getStoreDrawer() {
+    return store_drawer;
   }
   
   //Setters
@@ -260,7 +266,11 @@ public class Player {
     }
     else if ((state == MENU && menu.getStoreButton().mouseReleased()) || (state == NEXTLEVEL && global_menu.getStoreButton().mouseReleased())) {
       state = STORE_INIT;
-    } 
+    }
+    else if (state == STORE_INIT && store_drawer.getBackButton().mouseReleased()) {
+      state = INIT;
+      init();
+    }   
     else if (state == MENU && menu.getSoundButton().mouseReleased()) {
       G_SOUND_STATE = !G_SOUND_STATE;
     }
@@ -349,6 +359,9 @@ public class Player {
       global_menu.getContinueButton().mousePressed();
     if (state == TUT_TIMEOUT)
       goback_button.mousePressed();
+    if (state == STORE_INIT) {
+      store_drawer.getBackButton().mousePressed(); 
+    }
   }
   // Private
   // Dimensions of grid
@@ -387,6 +400,9 @@ public class Player {
   
   // Tutorial wrong flag
   private boolean TUT_WRONG;
+  
+  // StoreDrawer
+  private StoreDrawer store_drawer;
    
 }
 

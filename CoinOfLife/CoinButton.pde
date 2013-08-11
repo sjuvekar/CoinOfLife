@@ -34,6 +34,20 @@ public class CoinButton {
     return this.button.mousePressed();
   }
   
+  // Getter
+  int getX() {
+    return x;
+  }
+  int getY() {
+    return y;
+  }
+  int getWidth() {
+    return wd;
+  }
+  int getHeight() {
+    return ht;
+  }
+  
   //private
   private int x;
   private int y;

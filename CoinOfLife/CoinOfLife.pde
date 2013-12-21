@@ -1,12 +1,8 @@
   /* @pjs preload="coin.png, button.png, active_button.png, gem.png, diamond.png, rock.png, logo.png, soundon.png, soundoff.png, 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, 7.png, 8.png, 9.png"; crisp="true"; */                 
 /* @pjs preload="play.wav, coin.wav"; */
 /* @pjs font="data/Clock.ttf, data/Button.ttf"; crisp=true; */ 
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Window;
-import android.widget.RelativeLayout;
-import com.google.ads.*;
-  
+import apwidgets.*;
+
 Player player;
 Drawer drawer;
 TutDrawer tut_drawer;
@@ -18,11 +14,11 @@ PImage[] G_DIGIT_IMAGES;
 PFont G_CLOCK_FONT, G_BUTTON_FONT;
 
 // Audio Setting
-// Maxims
-Maxim G_PLAY_MAXIM;
+// Minim
+//APMediaPlayer G_PLAY_MAXIM;
 
 // AudioPlayers
-AudioPlayer G_PLAY_PLAYER, G_COIN_PLAYER;
+APMediaPlayer G_PLAY_PLAYER, G_COIN_PLAYER;
 
 // Timer for playing coin sound
 int G_TIMER;
@@ -62,11 +58,16 @@ void setup() {
   G_BUTTON_FONT = createFont("Button.ttf", 24);
   
   // Create Maxim and AudioPlayers
-  G_PLAY_MAXIM = new Maxim(this);
+  //G_PLAY_MAXIM = new APMediaPlayer(this);
   
-  G_PLAY_PLAYER = G_PLAY_MAXIM.loadFile("play.wav");
-  G_COIN_PLAYER = G_PLAY_MAXIM.loadFile("coin.wav");
+  //G_PLAY_PLAYER = G_PLAY_MAXIM.loadFile("data/play.wav");
+  //G_COIN_PLAYER = G_PLAY_MAXIM.loadFile("data/coin.wav");
+  G_PLAY_PLAYER = new APMediaPlayer(this);
+  G_PLAY_PLAYER.setMediaFile("play.wav");
   G_PLAY_PLAYER.setLooping(false);
+  
+  G_COIN_PLAYER = new APMediaPlayer(this);
+  G_COIN_PLAYER.setMediaFile("coin.wav");
   G_COIN_PLAYER.setLooping(false);
   
   // Set Sound State

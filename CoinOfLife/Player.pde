@@ -201,7 +201,7 @@ public class Player {
   public void simulate() {
     if (state != SIMULATING && state != TUT_SIMULATING) return;
     if (G_SOUND_STATE && L_OK_TO_PLAY) {
-      G_PLAY_PLAYER.play();
+      G_PLAY_PLAYER.start();
       L_OK_TO_PLAY = false;
     }
     
@@ -304,7 +304,6 @@ public class Player {
   
   // Advance scorer after timeout
   public void advanceScorers() {
-    G_PLAY_PLAYER.stop();
     G_TIMER = 0;
     
     while (!coin_scorer.reachedMaxScore()) 
@@ -330,15 +329,15 @@ public class Player {
   public void waitForNextLevel() {
     if (G_TIMER == 10) {
       if (G_SOUND_STATE) {
-        G_COIN_PLAYER.cue(0);
-        G_COIN_PLAYER.play();
+        //G_COIN_PLAYER.cue(0);
+        G_COIN_PLAYER.start();
       }
       G_TIMER = G_TIMER + 1;
     }
     else if (G_TIMER >= 80) {
       state = NEXTLEVEL;
       G_TIMER = 0;
-      G_COIN_PLAYER.stop();
+      //G_COIN_PLAYER.loop();
     }  
     else {
       G_TIMER = G_TIMER + 1;

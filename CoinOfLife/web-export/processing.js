@@ -1202,7 +1202,7 @@
       this.family = name;
       break;
     default:
-      this.family = '"' + name + '", fantasy';
+      this.family = '"' + name + '", sans-serif';
       break
     }
     this.context2d = computeFontMetrics(this);

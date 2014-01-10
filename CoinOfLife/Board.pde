@@ -32,7 +32,7 @@ public class Board {
     
     // Randomly set gems
     for (int i = 1; i <= this.max_grid_x; i++) {
-      for (int j = 1; j <= this.max_grid_y; j++) {
+      for (int j = 2; j <= this.max_grid_y; j++) {
         double r = random(0., 0.5);
         if (r < 0.00692)
           gem_positions[i][j] = true;
@@ -74,6 +74,7 @@ public class Board {
     int j = (int) (mouseY / c_height);
     if (gem_positions[i][j] || diamond_positions[i][j] || rock_positions[i][j])
       return;
+    if (j <= 1) return;
     alive[i][j] = true;
     ever_alive[i][j] = true;
     last_X.add(0, i);
@@ -160,7 +161,8 @@ public class Board {
           
           if (!ever_alive[i][j]) {
             ever_alive[i][j] = true;
-            coin_increment++;
+            if (j > 1)
+              coin_increment++;
           }
         }
         else {

@@ -7,6 +7,10 @@ int arena_height() {
 }
 
 int cell_width() {
+  if (height <= 240)
+    return 20;
+  if (height <= 480)
+    return 40;
   return 54;
 }
 
@@ -20,7 +24,7 @@ int max_grid_X() {
 }
 
 int max_grid_Y() {
-  return (int)(arena_height() / cell_height()) - 2;
+  return (int)(arena_height() / cell_height()) - 1;
 }
 
 int min_grid_X() {
